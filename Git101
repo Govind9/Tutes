@@ -1,0 +1,50 @@
+Github:
+How to turn a simple directory into a repo?
+	Go to that directory.
+	git init
+
+How to add files in the directory to the repo?
+	git add filename //to add a file by name or path
+	-u option updates the current index (without adding new files)
+	-A to add everyfile
+
+How to connect a local repo to a remote repo:
+	git remote add origin https://github.com/username/Hello-World.git
+	where origin is the nickname for the given repo.
+	Using this command one can connect the same local repo to as many remote repos as one likes. We can give nicknames to all of these repos.
+
+To re-nickname a remote repo:
+	git remote rename current_nickname
+
+To disconnect a local repo from a remote repo:
+	git remote remove origin
+	
+To send commit changes:
+	Add every file that has been changed before commit.
+	git commit -m "Message"
+	
+To send changes to remote repo:
+	git push nickname branch
+	
+To get data from the repo:
+	To get the latest stuff from a repo:
+		git fetch nickname branch
+	To merge these fetched stuff to your local repo:
+		git merge nickname branch
+	To do the above two things in one step use:
+		git pull nickname branch
+	
+To get a working of an entire repo and start working on it directly without having to do all the linking stuff do:
+	git clone https://github.com/username/Hello-World.git
+	
+To know which remote repo your local repo is connected to:
+	git remote -v
+
+What is the deal with branches? And how to merge branches?
+How to see older commits locally?
+	Every commit has a hash. Check out this hash by using:
+	git log
+	Then to go to a particular commit for a particular file:
+	git checkout hash filename
+	or git checkout hash  //for every file in the pwd
+what is git fetch?

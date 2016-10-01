@@ -1,0 +1,267 @@
+Binary Search:
+	read item
+	read N
+	left=0
+	right=N-1
+	Middle=(left+right)/2
+	while(left!=right):
+		if(item>arr[middle]):
+			left=middle+1
+		elif(item<arr[middle]):
+			right=middle-1
+		else:
+			exit success
+		middle=(left+right)/2
+	if(item==arr[middle]):
+		exit sucess
+	exit failure
+	
+Bubble sort:
+	for i in range(0, n):
+		for i in range(0, n-1):
+			if(arr[j]>arr[j+1]):
+				swap(arr[j], arr[j+1])
+	return 
+	
+Insertion sort:
+	for k in range(2, n):
+		temp=arr[k]
+		p=k-1
+		while(p>0 && temp<arr[p]):
+			arr[p+1]=arr[p]
+			p=p-1
+		arr[p+1]=temp
+	return
+	
+Selection sort:
+	for i in range(0, n-1):
+		min=i
+		for j in range(i+1, n):
+			if(arr[j]<arr[min]):
+				min=j
+		if(min!=i):
+			swap(arr[i], arr[min])
+	return
+	
+Quick sort:
+	quicksort(Array, l, r):
+		if(l<r):
+			p=partition(Array, l, r)
+			quicksort(Array, l, p-1)
+			quicksort(Array, p+1, r)
+		return
+	
+	partition(Array, l, r):
+		x=l
+		pivot=Array[x] //fixed throughout
+		while(true):
+			temp=x
+			i=l-1
+			j=r+1
+			do:
+				j--
+			while(Array[j]>pivot)
+			swap(Array[j], Array[x])
+			x=j
+			do:
+				i++
+			while(Array[i]<pivot)
+			swap(Array[i], Array[x])
+			x=i
+			if(x==temp):   //in case nothing happend i.e. things dont need any help i.e they are already sorted.
+				return x
+				
+Merge sort:
+	mergesort(Array, l, r):
+		if(l<r):
+			middle=(l+r)/2
+			mergesort(Array, l, m)
+			mergesort(Array, m+1, r)
+			merge(Array, l, m, r)
+		return
+		
+	merge(Array, l, m, r):
+		for(i=l, j=0; i<=m; i++, j++):
+			Temp_L[j]=Array[i]
+		for(i=m+1, j=0; i<=r; i++, j++):
+			Temp-R[j]=Array[i]
+		p=0
+		q=0
+		k=0
+		size_L=(m-l)+1
+		size_R=(r-m-1)+1
+		while(p<size_L && q<size_R):
+			if(Temp_L[p]<Temp_R[q]):
+				Array[k]=Temp_L[p]
+				p++
+			else
+				Array[k]=Temp_R[q]
+				q++
+			k++
+		while(p<size_L):
+			Array[k]=Temp_L[p]
+			p++
+			k++
+		while(q<size_R):
+			Array[k]=Temp_R[q]
+			q++
+			k++
+		return
+	
+Heap sort:
+	heapsort(Array, count): //count is the size of the array
+		heapify(Array, count)
+		end=count-1 //the last index
+		while(end>0):
+			swap(Array[0], Array[end])
+			end--
+			siftdown(Array, 0, end)
+		return
+	
+	heapify(Array, count):
+		start=(count-2)/2 // start at the last parent in array
+		while(start>0): //for all the parents
+			siftdown(Array, start, count-1)
+			start--
+		return
+		
+	siftdown(Array, start, end):
+		l=2*start+1
+		r=l+1
+		max=start
+		if(l<=end && Array[l]>Array[max]):
+			max=l
+		if(r<=end && Array[r]>Array[max]):
+			max=r
+		if(max != start):
+			swap(Array[max], Array[start])
+		siftdown(Array, max, end)
+		return
+		
+Radix sort:
+	radixsort(Array, n):
+		max=maximum(Array, n) //simple routine that finds the maximum element. Note that the maximum element is the one having the most //digits
+		for(exp=1; max/exp>0; exp*=10):  //exp is 10, 100, 1000 and so on
+			countsort(Array, n, exp)     //countsort simple uses exp to divide and use the remainder as the digit to consider
+		return
+		
+	countsort(Array, n, exp):
+		output[n] //it will contain the sorted order eventually
+		count[n]={0} // all are initialized to 0
+		for i in range(0, n):
+			count[(Array[i]/exp)%10]++   //count the number of time each digit from 0-9 is repeated
+		for i in range(1, n):          //commulative sum to find the position
+			count[i]+=count[i-1]
+		for i in range(n-1, -1):      // from n-1 to 0
+			output[count[(Array[i]/exp)%10]-1]=Array[i]
+			count[(Array[i]/exp)%10]--
+		for i in range(0, n):
+			Array[i]=output[i]
+		return
+		
+BFS:
+	for v in V:
+		v.status=0
+	for v in V:
+		v.status=1
+		Q.insert(v)
+		while(!(Q is empty)):
+			u=Q.dequeue()
+			print(u)
+			u.status=2
+			for n in ADJ[u]:
+				if(n.status==0):
+					n.status=1
+					Q.insert(n)
+	return 
+	
+DFS:
+	//using stack
+	for v in V:
+		v.status=0
+	for v in V:
+		v.status=1
+		STACK.push(v)
+		while(!(STACK is empty)):
+			u=STACK.pop()
+			print(u)
+			u.status=2
+			for n in ADJ[u]:
+				if(n.status==0):
+					n.status=1
+					STACK.push(n)
+	return
+			
+				
+	//using recursion
+	for v in V:
+		v.status=0
+	for v in V:
+		DFS_VISIT(v)
+	return
+	
+	DFS_VISIT(v):
+		v.status=1
+		print(v)
+		v.status=2
+		for n in ADJ[v]:
+			if(n.status=0):
+				DFS_VISIT(n)
+		return
+		
+Topological sort:
+	Either use DFS
+	or the following method:
+	
+	topological(G):
+		while(!(V is empty)):
+			check=true
+			for i in V:
+				if(i.indegree()==0):
+					check=false
+					print(i)
+					V=V-{i}   //remove i from V
+					for v in V:
+						if({v,i} in E):
+							E=E-{v,i}  //remove all the edges from i in the graph
+					break
+			if(check):
+				print(Can't sort:Cyclic Graph)
+		return
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

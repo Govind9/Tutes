@@ -1,0 +1,100 @@
+Saving things permanently in the vimrc file. This file is in your home directory and is hidden. Its name is .vimrc so either open that using sudo etc or simply open vim and type in the following command:
+:e .vimrc
+Once the file is opened, don't touch anything else, go to the bottom of the file add all the set commands there (without writing the colon). After this, restart vim to apply the changes.
+
+u : To undo what you just did.
+
+To open a new file just type vim. After writing some things in this file save it with a name by using the following command: 
+
+:w filename.
+:e filename -> will open the mentioned file editing or create a new file and then open it.
+:next -> to navigate between multiple files opened at the same time.
+:set nu, set rnu
+:set colorcolumn=80
+:set bg=dark/light
+:set tabstop=4
+:colors elflord
+
+Insert mode:
+i : to start insertion before the current character.
+I : to start insertion at the begining of the line character.
+
+Append mode:
+a : To start appending after the current character under the cursor.
+A : To start appending at the end of the current line. 
+
+Replace mode:
+r : to replace the curret character under the cursor.
+R : to replace as much character as you want starting from the character currently under the cursor.
+
+
+New lines:
+o : To create a new line just after the current line.
+O : To create a new line just before the current line.
+
+Navigate:
+w : To navigate to the end of one word at a time, where words are delimited by punctuation marks as well as the spaces and tabs.
+W : To navigate on word at a time, where the words are delimited only by space and tabs.
+e : To navigate to the end of the next word.
+E : To navigate to the end of the next word (only spaces are the delimiter).
+Use the h, j, k, l keys in the command mode to navigate one character at time in the left, down, up, right directions respectively.
+G : To move to the bottom of the file.
+gg : To move to the top of the file.
+nG : To move to the nth line of the file.
+The hjkl can also be used with numbers. 2j means move two lines down.
+
+Marking files:
+Go to the line to be markerd, press m to get into the marking mode. Then press any one letter. This letter will the tag for this line. So next time if you want to go this line directly, you can type ' followed by the letter.
+
+Change mode:
+This mode is to be used in conjunction to other modes. 
+cc : To delete the current line completely.
+cw : To delete the right portion of the current line from where the cursor is inside the line.
+
+Deletion:
+x : Delete a single character, the one which is under the character. This is very much like the del key.
+X : Same thing as x but is like the backspace thing.
+dw : To delete the starting of the next word.
+de : To delete till the end of the current word.
+Similarly use W, E if the word to deleted contains any punctuation marks that are not needed. 
+D : Deletes till the end of the current line from the current cursor position.
+
+Yanking (Copying) and Pasting:
+y : Will copy or yank what we specify, using a modifier.
+p : To paste whatever we've just yanked after the current cursor position. This option will also work with things cut using d and D. This means that d and D work like cut in normal text editors.
+P : To paste before the current cursor.
+Y : To yank the entire line.
+
+Searching:
+/word will search for and highlight all the occurences of the word. Then press enter to go to the first occurence. Follow this by n to move forward into other occurence. N to move backwards in the occurences.
+If the word to be search contains any special character then we will have to escape them using the back slash.
+/ will search from the top of the document. You can search from the back of the document using ?.
+Once you are done with the search then you can get rid of the highlight stuff by writing the command:
+:nohlsearch
+
+Replace:
+:1,4s/orignial_word/new_word/g : The g here means that every occurence of the word in each line is to be replaced and not just the first occurence in every line.
+If you want to the same thing for the whole file then use % instead of 1,4 which specified the line numbers.
+
+Tabs:
+ctrl+w stands for windows
+:split filename to create a new tab horizontally. The shorter way of doing this is ctrl+ws.
+:vsplit filename to create new tab vertically. Or use ctrl+wv.
+In order to move between tabs use ctrl+w followed by the navigational modifiers h, j, k, l.
+In order to quit a tab, just go to that tab and do :q stuff. Use :qa to quit all of the tabs.
+
+All of this split the current window. But if you want a new tab like in chrome, use
+:tabnew
+In order to navigate between tabs use :tabp which stands for previous tab. Similarly there is :tabn which stands for tab new.
+
+Coding stuff:
+If you are at one bracket then press % to jump to its corresponding bracket.
+
+Indentation:
+> : Indentation. Takes modifiers.
+< : De-indentation.
+== : To set the current line to its correct indentation levele.
+=G : To indent the whole document automatically.
+~ : Changes the case of the character. Hold this to keep changing as much as you want.
+How to make vim keep up the indentation level at every line?
+:set autoindent
