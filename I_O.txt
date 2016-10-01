@@ -1,0 +1,57 @@
+All The C Console I/O is done under the header file stdio.h and C++ inherits all of there from the header file cstdio.h
+
+C STYLE I/O :
+	CONSOLE :
+		READING/WRITING CHARACTERS :
+			getchar() :
+				int getchar()
+				Waits for a key to be pressed on the keyboard and once a key is pressed the corresponding character is automatialy echoed to the screen.
+				It can work with a char just fine.
+				Return EOF =-1 when an error ocuurs.
+				The Problem with getchar() is that one must press enter for it to recieve a character. Hence it is quite unpopulr in interactive programs. An Alternative to this is the getch() and getche() functions.
+
+			putchar() :
+				int putchar(int)
+				It puts its argument to the screen. We can give it a char argument and it will still work. 
+				Return EOF =-1 when an error ocuurs.
+
+			getch() and getche() :
+				int getch()
+				int getche()
+				include<conio.h>
+				Both of there functions wait for a key to be pressed on the keyboard and DOESNOT REQUIRE A FOLLOWING ENTER TO RECIEVE THE CHARACTER. The difference between the two being that getch() wont echo the character to the screen but getche() will.
+			
+		READING/WRITING STRINGS :
+			gets() :
+				char* gets(char *p)
+				It return a series of character pressed from the keyboard to the address in it as argument after an enter is pressed.
+				This can be used to input a string directly into an array of characaters but it doesnt perform any boundary checks on the size of the array and hence can cause array overrun. An alternative to this is the fgets() fucntion.
+			
+			puts() :
+				int puts(const char * p);
+				The puts( ) function writes its string argument to the screen followed by a newline.
+				It is faster than the printf() function because it specialises in displayin just strings unlike printf(), so use this when the job is to display just messages to make ur code optimal.
+				It return EOF ==-1 in case of an error and return a positive value otherwise.
+
+		FORMATTED CONSOLE I/O :
+			The functions printf( ) and scanf( ) perform formatted output and input⎯that is, they can read and write data in various formats that are under your control. The printf( ) function writes data to the console. The scanf( ) function, its complement, reads data from the keyboard. Both functions can operate on any of the built-in data types, including characters, strings, and numbers.
+			
+			printf() :
+				int printf(const char *control_string, ...);
+				
+				The printf( ) function returns the number of characters written or a negative value if an error occurs.
+			
+			scanf() :
+				int scanf(const char *control_string, ...);
+				The scanf( ) function returns the number of data items successfully assigned a value. If an error occurs, scanf( ) returns EOF. 
+	
+	FILE HANDLING :
+		red from book.
+
+C++ STYLE I/O :
+	
+	string x;
+	cin>>x;
+	cout<<x;
+	Now suppose that you enter the following string "THIS IS life" then the output will be only "THIS"
+	Because the >> reads till the first white space is encountered.

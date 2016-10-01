@@ -1,0 +1,154 @@
+THE GENRAL FORM :
+	return type name(parameter list)
+	{
+		body of the function.
+	}
+
+BASICS :
+	A function can return any type of data except for an array.
+	
+	The parameter list is of the form type name1,type name2,type name 3 ....
+	
+	You cannot define a function within a function.
+	
+	The function defines variable inside its parameter list which catch the values of the argument passed to it. These are called formal parameters.
+	
+	In C++ int func() anf int func(void ) is same.
+
+CALL BY VALUE AND CALLBY REFERENCE :
+	In call by value, the values of the variable passed as arguments to the function at the time of calling the function are copied and are pasted as the values of the formal parameters of the function. Hence the function is only able to affect the values of its formal  parameters and the original variable passed as arguments are not affected.
+	int twice(int a)
+	{
+		return 2*a;
+	}
+	int main()
+	{
+		int x=10;
+		twice(x);//This line baicially means a=x where a is the local variable inside the function twice.
+	}
+	
+	In call by reference the function to be called doesnot expect actual values as its argument. It anticipated the addresses that holds the actual data. The function then goes on and makes changes at the address specified hence changing the actual variable's values.
+	int twice(int A_SPECIAL_VARIABLE_THAT_CAN_HOLD_THE_ADDRESS_OF_THE_TYPE_SPECIFIED aka a) //  
+	{
+		return 2*(*a); // return the twice of the value at address stored at a.
+	}
+	int main()
+	{
+		int x=10;
+		twice(&x); // here the address of x is passed as an address is expected by the function.
+	}
+	Now a has to be something that can hold an address :
+		1) a can be a pointer (as in C) twice(int *a);
+		2) a can be something that will explained later.
+		
+ARGC ANF ARGV :
+	Read the book at page 144. 
+
+RETURNING FROM A FUNCTION :
+	Use the return statement or wait for the end of the program i.e. '}'.
+	
+	in C++, if a function
+	is specified as returning a value, any return statement within it must have a value
+	associated with it. However, if execution reaches the end of a non-void function, then
+	a garbage value is returned. Although this condition is not a syntax error, it is still a
+	fundamental flaw and should be avoided.
+	
+	If a function return a value, it is not necassary to assign it to some variable. Because if a value returning function is called without using it in an expression or assignment, all of its functionality is executed and the return statement is ignored.So :
+		int prnt()
+		{
+			cout<<"hey";
+			return 11;
+		}
+		int x=prnt() will assing 11 to x but after it has printed "hey" on the screen.
+		On the other hand, 
+		prnt(); will just print "hey" and retrun nothing to nobody.
+		Interstingly cout<<prnt(); will print the following on the screen : "hey11".
+	
+	RETURNING POINTERS :
+		type * name(..)
+		{
+			....
+			return "Some Address";
+		}
+
+FUNCTION PROTOTYPES :
+	int abc(...); //function prototype - whcih must occur before we call the function.
+	int main()
+	{
+		abc(...);  // function call
+	}
+	int abc(...)  // function declaration
+	{
+		body of the function.
+	}
+	
+	Any standard library function used by your program must be prototyped. To accomplish
+	this, you must include the appropriate header for each library function. All necessary
+	headers are provided by the C/C++ compiler. In C, the library headers are (usually)
+	files that use the .H extension. In C++, headers may be either separate files or built into
+	the compiler itself. In either case, a header contains two main elements: any definitions
+	used by the library functions and the prototypes for the library functions. 
+	
+FUNCTIONS WITH VARIABLE LENGTH PARAMETER LIST :
+	A function that can have a variable number of arguments passed to it takes the following form:
+		int func(int a,int b, ...) .
+		The the three dots are necaasary syntax.
+		The above function must atleast two int parameter and after that it can any or no parameters
+	
+	Any function that uses a variable number of parameters must have at least one
+	actual parameter. For example, this is incorrect:
+	int func(...); /* illegal */
+	
+	The point of this is that all other parameters are nameless and hence are unusable, so they will basicaly be ignored, its just to make sure that the function works correctly inspite of any number of parameters we end up giving it.
+	
+INLINE FUNCTIONS :
+	In C++, you can create short functions that are not actually called; rather, their code is expanded in line at the point of each invocation. This process is similar to using a function-like macro. To cause a function to be expanded in line rather than called, precede its definition with the inline keyword. 
+	
+	inline int fn()
+	{
+		return 2;
+	}
+	int main()
+	{
+		return fn();
+	}
+	
+	Like register, inline is a request not a command, the compiler can ignore this and can call the function as normal functions. This happens so when we make a recursive function into an inline function. The compiler does not make it inline it just ignores this request and uses this function as a normal one.
+
+THE USE OF :: 
+	int i; // global i
+	void f()
+	{
+		int i; // local i
+		::i = 10; // now refers to global i
+		.
+		.
+		.
+	}
+	
+FUNCTION OVERLOADING:
+	Function overloading is the process having the same name for two different functions. The name of the two functions is same but the difference lies in the function body and the argument list. The return type of two overloaded functions can be different but that alone is not enuogh to differentiate two functions with the same name. Either the type or the number or both things or the parameters to the functions should be different.
+	
+	The most important use of function overloading is overloading constructors:
+		Overloading a constructor is really easy, just have constructors with different different parameters in them.
+		
+	Copy Constructor:
+		Read from definitions.
+		classname(const classname &obj)
+		{
+			//body of the constructor.
+		}
+	Here, o is a reference to the object on the right side of the initialization. It is permissible for a copy constructor to have additional parameters as long as they have default arguments defined for them. However, in all cases the first parameter must be a reference to the object doing the initializing.
+	
+	Refere to page 369 of the book for a great example.
+	
+DEFAULT ARGUMENTS:
+	Easy enough. Page 374.
+	All the parameters with default values must be to the right of all the parameters with no default values.
+	int haha(int x, int y=2, int z) // this is wrong:
+	int haha(int x, int z, int y=2) //this is correct, no default value less parameter should be to the right of a default valued parameter
+	
+	This concept can be used as an alternative to overloading parameterless constructors in a class. 
+	
+AMBIGUTY:
+	To read more goto page 380 and about in the book.

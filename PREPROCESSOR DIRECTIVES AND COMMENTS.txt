@@ -1,0 +1,134 @@
+These are not the part of the language but are very usefull.
+
+Each Preprocessor directive must be in its own line. #include <stdio.h> #include <stdlib.h> wont work.
+
+#define : 
+	The #define directive defines an identifier and a character sequence (i.e., a set of characters) that will be substituted for the identifier each time it is encountered in the source file. The identifier is referred to as a macro name and the replacement process as macro replacement. The general form of the directive is 
+	#define macro-name char-sequence
+	Notice that there is no semicolon in this statement. There may be any number of spaces between the identifier and the character sequence, but once the character sequence begins, it is terminated only by a newline.
+	
+	Once a macro name has been defined, it may be used as part of the definition of other macro names. For example, this code defines the values of ONE, TWO, and THREE:
+	#define ONE 1
+	#define TWO ONE+ONE
+	#define THREE ONE+TWO
+	
+	Macro substitution is simply the replacement of an identifier by the character sequence associated with it. Therefore, if you wish to define a standard error message, you might write something like this:
+	#define E_MS "standard error on input\n"
+	/* ... */
+	printf(E_MS);
+	
+	If the character sequence is longer than one line, you may continue it on the next by placing a backslash at the end of the line, as shown here:
+    #define LONG_STRING "this is a very long \
+    string that is used as an example"
+	
+	[C++ DOES ALL OF THIS WITH THE const KEYWORD]
+	
+	The #define directive has another powerful feature: the macro name can have arguments. Each time the macro name is encountered, the arguments used in its definition are replaced by the actual arguments found in the program. This form of a macro is called a function-like macro. Example :
+	#define HAHA(a)  (a)>0?1:-1
+	The parenthesis around a ensure proper substituion and better results.
+	
+	[C++ DOES ALL OF THIS WITH THE inline KEYWORD]
+
+#elif :
+	#if expression
+		statement
+	#elif expression
+		statement
+	.
+	.
+	.
+	#endif
+
+#else : 
+	Can also be used with the #if directive like:
+	#if expression
+		statements
+	#else
+		statements
+	#endif
+
+#endif : 
+	Used with #if and #ifdef. The endif directive marks the end of the #if block and doesnt realy have any real statements following it.
+
+#error :
+	The #error directive forces the compiler to stop compilation. It is used primarily for
+debugging. The general form of the #error directive is
+#error error-message
+The error-message is not between double quotes. When the #error directive is encountered,the error message is displayed, possibly along with other information defined by the compiler. It stops the compiler to even run the program.
+
+#if : 
+	Used to compile portions of a code. Genreal form being :
+	#if expression
+		statements.
+	#endif
+
+[NOTE : THESE DECISIONAL DIRECTIVES CAN BE USEFULL AS THEY SKIP THE COMPILATION OF SOME CODE AND CAN SAVE TIME]
+	
+#ifdef : 
+	#ifdef macro_name
+		statements
+	#endif
+	
+	The code b/w #ifdef and #endif will be compiled only if the macro name has been previosuly defined using the #define directive.
+	
+	This is could also have been done in a longer way. if suppose a macro is defined like:
+		#define HAHA
+	then the expression - defined HAhA will evaluate to true. So the effect of #ifdef can be achieved as:
+		#if defined Macro_name
+			statements
+		#endif
+	
+	The above expression: defined HAHA can also be proeceeded  with a ! to negate the expression.
+
+#ifndef :
+	#ifndef macro_name
+		statements
+	#endif
+	
+	The code b/w #ifndef and #endif will be compiled only if the macro name has NOT been previosuly defined using the #define directive.
+#include :
+	The #include directive instructs the compiler to read another source file in addition to the one that contains the #include directive. The name of the additional source file must be enclosed between double quotes or angle brackets. For example,
+	#include "stdio.h"
+	#include <stdio.h>
+
+#undef :
+	It undefines a macro.
+	#undef macro_name
+	
+Before we move to the following directives, we need to know about two predefined identifiers by the compiler: __LINE__ and __FILE__.
+__LINE__ contains the line number of the currently compiled line of code. and the __FILE__ is a string with the name of the file being compiled currently. These two identifiers can be played with using the following directives.
+
+#line :		
+	#line number "filename"
+	the number is any positive number that will become the new value of __LINE__
+	and the "filename" is optional it is any valid file identifier which becomes the new value of __FILE__.
+	this doesnot change the order of compilation, it just changes the value of an identifier which contains the information of the line which is being compiled currently.
+	
+	
+#pragma : 
+	NOTHING WAS TOLD.
+	
+THE # AND ## PREPROCESSOR OPERATORS :
+	The are operators that are used with the #define directive.
+	# (STRIGIZE) :
+		This converts the argument following it into a double quoted string. Example
+		#define cnvrt(s) #s
+		cout<<cnvrt(223 I am dni);
+		will mean 
+		cout<<"223 I am dni";
+	
+	## (concatenate) :
+		It concatenes its left and right operands into one identifier.
+		#define cnct(a,b) a##b
+		int hehehaha=2;
+		cout<<cnct(hehe,haha);
+		will mean
+		cout<<hehehaha;
+		
+PREDEFINDED MACROS :
+	__LINE__ : done
+	__FILE__ : done
+	__DATE__ : contains a string of the form month/day/year that is the date of the translation of the source file into object code.
+	__TIME__ : contains the time at which the program was compiled. The time is represented in a string having the form hour:minute:second.
+	__STDC__ :The meaning of _ _STDC_ _ is implementation-defined. Generally, if _ _STDC_ _ is defined, the compiler will accept only standard C/C++ code that does not contain any nonstandard extensions.
+	__cplusplus :A compiler conforming to Standard C++ will define_ _cplusplus as a value containing at least six digits. Nonconforming compilers will use a value with five or less digits.

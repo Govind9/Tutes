@@ -1,0 +1,449 @@
+There are seven basic:
+
+	int (signed by default)
+
+	char (unsigned by default)
+
+	float
+
+	double
+
+	void
+
+	bool:
+		The idea of true and false underlies the concepts of relational and logical operators.
+		In C, true is any value other than zero. False is zero. Expressions that use relational or
+		logical operators return 0 for false and 1 for true.
+		C++ fully supports the zero/non-zero concept of true and false. However, it also
+		defines the bool data type and the Boolean constants true and false. In C++, a 0 value
+		is automatically converted into false, and a non-zero value is automatically converted
+		into true. The reverse also applies: true converts to 1 and false converts to 0. In C++,
+		the outcome of a relational or logical operation is true or false. But since this automatically
+		converts into 1 or 0, the distinction between C and C++ on this issue is mostly academic.
+
+	wchar_t
+		The size of one unit of any data type is decided by the compiler and details about it are in the header file <climits>
+
+Except for type void, the basic data types may have various modifiers preceding them.
+You use a modifier to alter the meaning of the base type to fit various situations more
+precisely. The list of modifiers is shown here:
+
+	signed
+
+	unsigned
+
+	long
+
+	short
+
+	if we use these modifeirs alone .. an int is assumed so if i say long x; then this would be an int variable automaticaly
+	so long int x; and long x; mean the same thing.
+	
+	there is no limit to an identifier's name and atleast the first1024 character of the identifier are significant
+
+
+
+
+ARRAYS: 
+	type name[size]={initialisation list separated by commas};
+	
+	Multi dimensional arrays: type name[size1][size2] ={1,2,3,4,5,6....}; 
+	There are 3 ways of doing this: int a[3][2]={1,2,3,4,5,6};
+	int a[3][2]={
+					1,2,
+					3,4,
+					5,6
+				}
+	int a[3][2]={
+					{1,2},
+					{3,4},
+					{5,6}
+				}
+				This is called subgrouping.When using subaggregate grouping, if you don't supply enough initializers for
+				a given group, the remaining members will be set to zero automatically.
+	
+	int a[]={1,2,3} in this case the compiler automaticaly gives enough space to the array according to the initialisation elements and this works well for strings as well.
+	eg: char a[]="hello world"
+	Two-dimensional arrays are stored in a row-column matrix, where the first index
+	indicates the row and the second indicates the column. This means that the rightmost
+	index changes faster than the leftmost when accessing the elements in the array in
+	the order in which they are actually stored in memory.
+	
+	int arr[2][3]; arr[2] means arr[2][0].
+	
+	Character arrays that act as the string containers have a special way of initialization:
+		char str[30]="DNivog";
+	
+
+STRINGS: 
+	There are two types of strings in c/c++.
+	1) Null terminated string : This is the c language aproach of handling a string. It is nothing but an array of characters containg the string followed by a null character.
+	2) string : This is the c++ aproach towards a string. This basicaly uses object oriented aproach of making and using strings.
+	
+	Null terminated strings: 
+		Declare the array with size one more then the maximum sized string that is needed to be handled. When we use constants inside double quotes called string constants, the compiler is basicaly creating this type of array and it automaticaly fixes a null termination in the end for us. So "Hello world" is bacialy a character array with \0 at the end. Following are some functions in the library <cstring> or <string.h>:
+		strcpy(s1, s2) 		Copies s2 into s1.
+		strcat(s1, s2)		Concatenates s2 onto the end of s1.
+		strlen(s1) 		    Returns the length of s1.
+		strcmp(s1, s2)	    Returns 0 if s1 and s2 are the same; less than 0 if s1<s2;
+							greater than 0 if s1>s2.
+		strchr(s1, ch)		Returns a pointer to the first occurrence of ch in s1.
+		strstr(s1, s2)		Returns a pointer to the first occurrence of s2 in s1.
+		
+		We can have arrays of strings of this kind by simply declaring a two-D character array in which the first index is the number of strings we want and the second index is the length of each string including the null termination character.
+		
+USER DEFINED DATA TYEPS:
+	The C languaguage gives us five ways to create a custom data type :
+		1.The structure, which is a grouping of variables under one name and is called an
+		aggregate data type. (The terms compound or conglomerate are also commonly used.)
+		2. The bit-field, which is a variation on the structure and allows easy access to
+		individual bits.
+		3. The union, which enables the same piece of memory to be defined as two or
+		more different types of variables.
+		4. The enumeration, which is a list of named integer constants.
+		5. The typedef keyword, which defines a new name for an existing type.
+	C++ has all the above and adds classes to it.
+	
+	STRUCTURE :
+		A structure is a collection of variables referenced under one name, providing a
+		convenient means of keeping related information together.
+		struct person
+		{
+			int age;
+			string address,name;
+		};
+		It is ended with a ; because a function declaration is a statement.
+		person p1,p2;
+		
+		If we are gonna need only a certain no. of objects of a structure we can even the make the structure nameless and have just all the object like :
+		struct {
+			int age;
+			int rollno;
+		} obj1,obj2,obj3;
+		
+		The members are accesed usnig the dot (.) operator.
+		
+		obj1=obj2 would mean copying all the values of the members of obj2 into obj1.
+		
+		We can also have structures inside another structure.
+		
+		A struct can also have memeber functions just like a class. And it can also use the public, private and protected access specifeirs as in a class. The deafult being public as opposed to private in case of a class. IN ABSOLUTE COMPLETENESS: A STRUCT IS NOTHING BUT A CLASS, A CLASS THAT CAN HAVE CONSTRUCTORS, DESTRUCTORS, ACCESS SPECIFIERS AND EVERYTHIGN A CLASS HAS JUST FOR ONE DIFFERENCE THAT IN STRUCTS THE DEFAULT IS PUBLIC.
+
+		BIT FIELDS :
+			General syntax:
+				type name :length;
+			
+			The info stored in a bit field is bitwise. So a bitfield of lenght well only store the LSB of the value it is given.
+			
+			Bit fields are special members of a structure. Imagine you need only one byte to store some info, then why waste 4 bytes by using an int variable? What bit field does is that it allows us to make the compiler reserve only a certain amount of bits for some variable. Then this variable will only be able to store values in the specified bits. To Understand how it works, consider the following case:
+				One bori arrives at Chakki. Now it could be Atta: 0 or Daana :1. Simlarly it could be pisi hoyi: 0 or still pending: 1. Similarly Paise aw hoye ne pehla hi: 0 or haje laine ne: 1. Finaly bori aje chakki te hi hai: 0 or chak ke lai gaye ne: 1. This can be accomplished with the following structure:
+				struct status{
+					unsigned Atta_Daana :1;
+					unsigned Pissi_Pending :1;
+					unsigned Paid_YettobePaid :1;
+					unsigned Chakkite_legaye :1;
+				};
+				Now for every pand that enters our chakki we can have an object of the above structure. And assign values to individual members of the structure according to the condition.
+				For eg: for an atte di bori : obj1.Atta_Daana=0;
+				Bori pisti hai hence: obj1.Pissi_Pending=0;
+				paise haje aye ni : obj1.Paid_YettobePaid=1;
+				Bori lai gaye ne: obj1.Chakkite_legaye=1; 
+				Reading the above obj1 , we can tell that ke banda sadde naal udaar kar ke geya hai.
+				
+			Remember for fields of length one, make them unsigned always.
+				
+			struct status_type {
+				unsigned : 4;
+				unsigned cts: 1;
+				unsigned dsr: 1;
+			} status;	
+			In this example it shows that we dont care about the first 4 bits, hence we have omiited their name so that we cant access/use them as we dont care about them.
+			
+			Bit-fields have certain restrictions. You cannot take the address of a bit-field. Bitfields
+			cannot be arrayed. They cannot be declared as static. You cannot know, from
+			machine to machine, whether the fields will run from right to left or from left to right;
+			this implies that any code using bit-fields may have some machine dependencies.
+			Other restrictions may be imposed by various specific implementations.
+		
+		UNIONS :
+			A union is a memory location that is shared by two or more different types of variables.
+			A union provides a way of interpreting the same bit pattern in two or more different
+			ways. Declaring a union is similar to declaring a structure. Its general form is
+			
+			union union-type-name {
+				type member-name;
+				type member-name;
+				type member-name;
+				.
+				.
+				.
+			} union-variables;
+			
+			For example:
+			union cnvnt{
+				int i;
+				char ch;
+			};
+			cnvnt obj1;
+			In this case both i and ch share the same memory address alhough ch needs only 1 bit while i needs 2 bits, but still the value at that memory location is treated either as a characeter or as an integer based on what the user wants.When a union variable is declared, the compiler automatically allocates enough
+			storage to hold the largest member of the union. For example (assuming 2-byte integers),
+			cnvt is 2 bytes long so that it can hold i, even though ch requires only 1 byte.
+			
+			The thing with unions is that you can assign a value to one of the members of a union and later on use that value using another member of another type, and this time the value will be used being of the second type. While in actuality the value stored at the memory loacation of the union is not of any type. It is just sitting there waiting to be used in one of many types the union has in it. This functionality comes in very handy when you want small type conversions and stuff.
+			
+			ANONYMOUS UNIONS :
+				A Union without a name:
+				union 
+				{
+					int i;
+					char ch;
+				};
+				The members of this union are to be used directly without any dot operator or so. But as usual these variables will share the common location in memory.
+				All restrictions involving unions apply to anonymous ones, with these additions. First, the only elements contained within an anonymous union must be data. No member functions are allowed. Anonymous unions cannot contain private or protected elements. Finally, global anonymous unions must be specified as static.
+			
+			UNIONS AND CLASSES :
+				UNIONS ARE ALSO LIKE CLASSES, HAVING ALL OF THE THINGS A CLASS CAN HAVE.. LIKE CONSTRUCTORS, DESTRUCTORS ETC.. THE DEFAULT IS ALSO PUBLIC.
+			
+		ENUMERATIONS :
+			Sometimes we want a vairable to have only certain values, any other value is undesired and hence should produce an error in the program! This is done using an enumeration. An enumeration is a set of values that form the legal set of values a variable can have.
+			For Example:
+				enum roll_no {1311014,1311015,1311017,1311053} x,y;
+				In this example the integers x and y can only have the values in the curly brackets.
+			
+			The key point is that we can have any thing inside those curly braces. WE DONT HAVE TO WORRY ABOUT PUTTING THEM IN "" OR ''. It doesnt matter as those things are just symbols they are not actual values. Infact irrespective of what we write in those braces, each symbol gets an int value just like elements of array would get. So if I say considering the above example:
+			x=1311055; it will generate an error. but if i say
+			x=1311053; it wont generate an error but guess will be the output if I print x now? It wont be 1311053.
+			cout<<x; will be 3.
+			
+			Consider another example: 
+			enum coins {money,paise,tella,penny};
+			coins x;
+			Now : 
+			x=money or x= penny will work just fine.
+			but :
+			x=haha; or x=12 or x=mon will all generate an error in the program.
+			Furthermore :
+			x=tella;
+			cout<<x;
+			will give 2.
+			x=penny;
+			cout<<x;
+			will give 3.
+			
+			You can also initialize the symbols and then all the uninitialised symbols following the initialised one will increment from the initialising value.
+			enum coins{money,penny,paisa=76,tella,paan,dolar=47,cent} x;
+			now the valus for money=0
+			penny=1
+			paisa=76
+			tella=77
+			paan=78
+			dolar=47
+			cent=48.
+			
+			just remember the names in the enum are just int variables having automated values.
+		
+		We Can Define a new name for any existing data type by using the typedef keyword. For more details go see the keyword defining file.
+	
+	CLASSES $ OBJECTS :
+		class classname{
+			stuff
+		} object list;
+		The default access specifier is private.
+		
+		A class cant have an object of its own type as its member. To get around this, we can have a pointer to the class type as the member of the same class, meaning that the member pointer can now point to an object of the same class.
+		
+		No member can be declared auto, extern or register.
+		
+		Inorder to use an object of a class as a parameter to some function before the class has actually been defined, one can use the forward declaration of the class as :
+		class class_name ;
+		
+		FRIENDS :
+			A friend function of the class has the distinction of directly accessing all the private members of that class. Hence it can be used alone as a way of getting access to private members of a class.
+			Whwnever i say private i mran private and protected.
+			 To declare a friend function, include its prototype within the class, preceding it with the keyword friend.
+			 class aa
+			 {
+				public :
+					friend void aman(); // the prototype
+			 };
+			 
+			 Since a friend function is capable of using a private member of a class it can do so only if there is a private member to use i.e. only if there is an object of the class. That is why the frind function generally has the object of the class as its parameter.
+			 
+			 A derived class doesnot derive the friendship of its parent class with a function.
+			 
+			 A friend function can not be static or extern.
+			 
+			A friend CLASS :
+				It is possible for one class to be a friend of another class. When this is the case, the friend class and all of its member functions have access to the private members defined within the other class.
+				
+				class a
+				{
+					friend class b;
+				};
+				class b
+				{
+					this has access to private stuff of a.
+				};
+		
+		Class Member functions can also be inline :
+		class hah
+		{
+			void sum();
+		};
+		inline void hah::sum()
+		{
+		..... body of the function...
+		}
+		
+		All Members functions that are defined within the class are automatically requested to be inline hence they will always be inline when the compiler lets them be. This is called automatic inlining.
+		
+		PARAMETRISED CONSTRUCTORS :
+			student s1(1,2);
+			student s1=student(1,2) // ways of using the parametrised constructor.
+			student s1=1 //if the constructor takes only one arguement. This concept is used in the data conversion between an inbuilt and user defined data type.
+			
+		STATIC MEMBERS :
+			These members can be called and used without the dot operator and the object .. just using the class name and :: operator.
+			DATA MEMBERS :
+				When you precede a member variable's declaration with static, you are telling the compiler that only one copy of that variable will exist and that all objects of the class will share that variable. Unlike regular data members, individual copies of a static member variable are not made for each object. No matter how many objects of a class are created, only one copy of a static data member exists. Thus, all objects of that class use that same variable. All static variables are initialized to zero before the first object is created.When you declare a static data member within a class, you are not defining it. (That is, you are not allocating storage for it.) Instead, you must provide a global definition for it elsewhere, outside the class. This is done by redeclaring the static variable using the scope resolution operator to identify the class to which it belongs. This causes storage for the variable to be allocated. (Remember, a class declaration is simply a logical construct that does not have physical reality.)
+				
+				class hh
+				{
+					static int i;
+				};
+				int hh::i; // here we can initialise it something if not 0 cause 0 will be done automaticaly when the first obj will be made.
+				The second declaration is necaasary in the latest versions of the c++.
+				
+			MEMBER FUNCTIONS :
+				Member functions may also be declared as static. There are several restrictions placed on static member functions. They may only directly refer to other static members of the class. (Of course, global functions and data may be accessed by static member functions.) A static member function does not have a this pointer. (See Chapter 13 for information on this.) There cannot be a static and a non-static version of the same function. A static member function may not be virtual. Finally, they cannot be declared as const or volatile.
+				
+		LOCAL CLASSES :
+			have many restrictions.
+		
+		PASSING OBJECTS AS PARAMETERS :
+			When an object of a class is a parameter to a function and when this function is called with an object as its argument, then a copy of the argument object is made and is used by the function (This in accordance to how call by value works). Now a copy of an object is created at the time of calling of such a function. First things first,when the fucntion returns to its calling place, then this copy of the object obviosly is destroyed and hence its destructor is called. But when it was created, its normal constructor wont be called becauae normal constructors only initialise certins portions if the object. In such cases a special constructor called the copy constructor is called. It can be and will be defined later , but in case it is not defined by the programmer, a default one is provided automaticaly by the compiler which copies the object bit by bit.
+			
+		RETURNIG OBJECTS :
+			A new object is created and this object is returned.
+			
+		ARRAYS OF OBJECTS :
+			student s[3] will create three objects of class student. Suppose if our class has parametrised constructors requiring two arguments, then this is how we provide our two initialisers for each object in the array :
+				student s[3]={student(1,2),student(2,3),student(4,5)};
+				If the constructor needs only one initialiser then there is shorter way of doing this:
+				student s[3]={1,2,3};
+		
+		THE THIS POINTER :
+			Assume class studnet. One can have a pointer poiting to an object of this class in the following manner:
+				studnet *p;
+				studnet obj;
+				p=&obj;
+				Now obj.display() can also be done by the following ways:
+				p->display();
+			Here I created a pointer myself, but in c++ an absolutely similar pointer like p is created automatically for every object called the this pointer. this pointer is local to the object i.e. it can be used with meaning only inside the object i.e. during the class defination. So if an object (say G) uses an object (say g) of the same type as G then there can be confusion b/w their members (as g and G have same number of memebers with the same names and they coexist as g is being used in G). To avoid this cnfusion, we use the this pointer. this pointer will always point to G as that where the control is right now. 
+			class student
+			{
+				int x;
+				public:
+				student(int i)
+				{
+					x=i;
+				}
+			};
+			
+			in the above example, the x=i line in the constructor could be replaced by the following line:
+				this->x=i; 
+			this is handy when there is a foreign object inside the class.
+			Writing x=i was actualy a short hand, and the use of this is actualy the how it is supposed to be done.
+			this pointer is passed to every function in the class automaticaly.
+			Two final points about this. First, friend functions are not members of a class and, therefore, are not passed a this pointer. Second, static member functions do not have a this pointer.
+			
+			this pointer is used when a object's member function function is supposed to return the object itself:
+			student
+			{
+				student func()
+				{
+					return *this;
+				}
+			};
+			Since friend functions are not the members of the class they dont have a this pointer secretly passed to them as an argument. Similarly, static memebers donthave any association with the this pointer.
+		
+		OPERATOR OVERLOADING: Refer to operators.
+		
+		INHERITANCE:
+			class Base
+			{
+				private:
+					int x,y;
+				public:
+					Base()
+					{
+						x=y=0;
+					}
+					Base(int a, int b)
+					{
+						x=a;
+						y=b;
+					}
+			};
+			class Derived : public Base
+			{
+				private:
+					int z;
+				public:
+					Derived()
+					{
+						z=0;
+					}
+					Derived(int a, int b, int c) : Base(a, b)
+					{
+						z=c;
+					}
+			};
+			
+			In the above example, the constructor of the derived class is supposed to call the constructor of its base class. And this is done using the syntax shown, using a colon and passing parameters like you'd do while calling a normaml function. If we don't call the constructor as such, then don't worry because c++ will automatically call the default constructor if the base class for you, as will be the case if the Derived class's parameterless function ever gets called since there no other function is being called.
+			This is done in such a different way because unlike a normal function, we cannot call a constructor in a statement unless its the declaration of an object i.e. Base(); will compile but will fail to actually call the constructor for Base class.
+			
+			ASSIGNING BASE OBJECTS THE VALUE OF DERIVED CLASSES AND VICE VERSA:
+				Base b;
+				Derived d;
+				b=d//allowed, truncatation will happen though.
+				d=b//not allowed
+				The same can be said when pointers are used.
+				
+		POLYMORPHISM:
+			Read Definitions, Pointers.
+			Virtual keyword: Works with the pointers of base class, normal assignments wont do.
+				class base
+				{
+					//blah blah
+					virtual void display()
+					{
+						cout<<"this is the base class";
+					}
+				};
+				
+				class derived : public base
+				{
+					//blah blah
+					void display()
+					{
+						cout<<"this is the derved class";
+					}
+				};
+				
+				int main()
+				{
+					base b;
+					derived d;
+					b=d;
+					b.display(); //this will say: this is the base class.
+					
+					base *c;
+					c=&d;
+					c->display(); //this will say: this is the derived class.
+				}
+				
+			ABSTRACT CLASSES:
+				A class is called as an abstract class if it contains at least one pure virtual functions. Pure vitual functions are those which do not have any code written inside of them. Similarly an abstract class can not have an object. An abstract class is used just as a blue print for all of its inherited classes, this is because if a function is written in an abstract class as a pure virtual function, then it becomes absolutely neccessary for the derived classes to implement that function.
+				virtual void display()=0;
+				virtual datatype name()=0;

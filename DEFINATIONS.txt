@@ -1,0 +1,118 @@
+FORMAL PARAMETERS :
+	If a function is to use arguments, it must declare variables that will accept the values
+	of the arguments. These variables are called the formal parameters of the function.
+
+LINKAGE IN C++ :
+	Before examining extern, a brief description of C/C++ linkage is in order. C and C++
+	define three categories of linkage: external, internal, and none. In general, functions
+	and global variables have external linkage. This means that they are available to all
+	files that comprise a program. Global objects declared as static (described in the next
+	section) have internal linkage. These are known only within the file in which they are
+	declared. Local variables have no linkage and are therefore known only within their
+	own block.
+
+C++ states that register is a "hint to the implementation that the
+object so declared will be heavily used.
+
+TYPE CONVERSIONS :
+	in an assignment operator the value of the rhs is converted to the type of the lhs variable.The following the loss of data:
+	Target     	       Type Expression            Type Possible Info Loss
+
+	signed char            char                       If value > 127,target is negative
+	char                   short int                  High-order 8 bits
+	char                   int (16 bits)              High-order 8 bits
+	char                   int (32 bits)              High-order 24 bits
+	char                   long int                   High-order 24 bits
+	short int              int (16 bits)              None
+	short int              int (32 bits)              High-order 16 bits
+	int (16 bits)          long int                   High-order 16 bits
+	int (32 bits)          long int                   None
+	int                    float                      Fractional part and possibly more
+	float                  double                     Precision, result rounded
+	double                 long double                Precision, result rounded
+
+	When variables and constants of different types are all thrown in one expression then their values are converted to one single type which is the type of the biggest kind in that expression. This is called TYPE PROMOTION. First all short int and char are converted to int and then the following algorithm is followed:
+
+	IF an operand is a long double
+	THEN the second is converted to long double
+	ELSE IF an operand is a double
+	THEN the second is converted to double
+	ELSE IF an operand is a float
+	THEN the second is converted to float
+	ELSE IF an operand is an unsigned long
+	THEN the second is converted to unsigned long
+	ELSE IF an operand is long
+	THEN the second is converted to long
+	ELSE IF an operand is unsigned int
+	THEN the second is converted to unsigned int
+
+	There is one additional special case: If one operand is long and the other is
+	unsigned int, and if the value of the unsigned int cannot be represented by a long,
+	both operands are converted to unsigned long.
+
+CAST : 
+	The process of forcing a type to an expression is called casting. It is of the form: (type) expression.
+	eg int x=2; (float) x/2; will give the value 1.0. Casts can be thought of an operator with precdance similar to that of any unary operator. 
+
+COMPOUND/SHORTHAND ASSIGNMENT : 
+	x=x+10 can also be written as x +=10. In general x =x (any binary opr) y can be written as x (opr)= y.
+
+STATEMENTS :
+	Something that can be executed.These are of the following type:
+
+	Selection : if-else, switch
+	Iteration: for, while, do-while
+	Jump: goto,continue,break, return
+	Label:case, default, label
+	Expression: any valid expression
+	Block : starts and end with a {} and can be placed anywhere a single statement could go.
+
+INFINITE LOOPS :
+	for(;;) will run infintly unless a jump statement like break is encountered.
+
+TIME DELAY LOOPS :
+	A loop with no body does nothing but wasted time hence can be used as a time delay loop.
+
+VARIABLE DECLARATION INSIDE LOOPS :
+	it is possible to declare a variable within the conditional expression
+	of an if or switch, within the conditional expression of a while loop, or within the
+	initialization portion of a for loop. A variable declared in one of these places has its
+	scope limited to the block of code controlled by that statement. 
+
+JUMP STATEMENTS :
+	C/C++ has four statements that perform an unconditional branch: return, goto, break,
+	and continue. Of these, you may use return and goto anywhere in your program. You
+	may use the break and continue statements in conjunction with any of the loop
+	statements. As discussed earlier in this chapter, you can also use break with switch.
+
+A NUll statement is just a semicolon ; It does nothing but it is valid.
+
+The most common array is the null terminated string which is basically a collection of characters followed by a null character.
+
+RANDOM NUMBERS :
+	getch() return an positive int value on pressing the keyboard. Use getch()%n to have random numbers between 0 and n.
+	
+REFERENCES:
+	A reference to a variable is like giving a nickname to the variable. See more in POINTERS section
+	
+COPY CONSTRUCTORS:
+	When we assign an object to another object of the same class like obj1=obj2, the compiler creates a bitwise copy of obj2 and assigns it to obj1. This works fine for most cases, but this causes problem when objects of a class contain pointers and stuff cause then the newly copied object will also point to the same place on account of it being the exact bitwise copy, i mean you get it, it creates a mess. Simply put, the default way of copying objects and assigning the copies to other objects is not the ideal way to go in some cases. When passing object as arguments to a function,  or when returning objects from a function, such things come into play.
+	A copy construtor is customized way of copying an object into another. For more details refer to the Function Overloading in functions.
+	Following are mostly when copy constructors are needed:
+	myclass B=A;  //out right copying
+	Myfucntion(A);  //argument passing
+	B=somefunction();  //functions returning objects.
+	
+CONVERTING A FLOAT/INT INTO A STRING:
+	#include<sstream>
+	int main()
+	{
+		int x;
+		float y;
+		stringstream obj;
+		obj<<x<<", "<<y; //this is the process of streaming data in any data type into the stream object. 
+		obj.str() //this function will return the data streamed to the object in string format.
+	}
+	
+POLYMORPHISM:	
+	Poymorphism is the ability of of objects to react differnetly to the similar looking commands according to different situations.

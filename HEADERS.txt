@@ -1,0 +1,1 @@
+TO add headers from c C into C++ like math.h simpply remove the .h and add a preceeding c. cmath.

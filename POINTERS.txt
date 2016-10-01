@@ -1,0 +1,299 @@
+BASICS :	
+	type *name;
+	The base type of the pointer defines what type of variables the pointer can point to.
+	Technically, any type of pointer can point anywhere in memory. However, all pointer
+	arithmetic is done relative to its base type, so it is important to declare the pointer correctly
+	we can make an int pointer to point to a double variable by using the type cast: double x;
+	int *p;
+	p=(int*)&x;
+
+MULTIPLE INDIRECTION(POINTER TO POINTER) :
+	type **name;
+	The double asterik not only is necessary while declaring a pointer to a pointer but is also necassary when extracting values using these doubly indirected pointers.
+	int x,*p,**q;
+	x=10;
+	p=&x;
+	q=&p;
+	now to access x, either use x or *p or **q. 
+
+INITIALIZING POINTERS :
+	After a nonstatic local pointer is declared but before it has been assigned a value, it contains an unknown value. (Global and static local pointers are automatically initialized to null.)
+	type *p=NULL or 0;
+
+POINTER ARITHMATIC :
+	let their be a pointer p of data type int, then we are allowed to prfor only addition and subtraction operations on it and those too are goverened by the following rule:
+	p +or- anything actualy means p+ or - anything*size of int.
+	we can increment ptr,decrement ptr, add some number to ptr,subtract sum number from ptr,subtract two ptrs only. You cant add two ptrs.
+	we can apply relational tests to pointers though , eg. p<q will be true if p points to a lower address then q.
+
+ARRAY OF POINTER :
+	to have 10 pointers with the similar name :
+	int *p[10];
+	now to make the ith element of the above array point to some variable do :
+	p[i]=&variable;
+
+POINTERS TO ARRAYS :
+	Suppose an array int A[10];
+	now we want the address of the first element of this array, its easy right ?
+	&first_element --- &A[0]. But C++ has a shorter way to do the same thing:
+	&A[0] means the same as A. So in wanting a pointer to point to the first element of the array use
+	int *p; 
+	p=A ; instead of p=&A[0].
+	
+	Now consider again : int *p,arr[10];
+	p=arr;
+	now arr[3] is the same as *(p+3);
+	This works like this: p is a pointer containing an address and adding 3 to p means jump three addresses ahead of the address specified by p it self and the * means that get the value stored at that address. Hence it means the same as arr[10].
+	This very concept can be extended to multidimensional arrays as well. So again assume : int *p,arr[m][n];
+	p=arr; //same as p=&arr[0][0]
+	now accessing certain element of arr means jumping to it from the first address, so arr[i][j] can be accesed like: *(p+no. of address units to jump to get to the element);
+	*(p+i(total no. of columns)+j)==*(p+i.n+j); But there is one little change, to make the pointer arithmatic work properly we have to add one another thing: (type*), so a[i][j] is actualy equal to *((int*)a+i.n+j).ALWAYS ADD THE (int*) in the begining it is important. This is basicaly an cast that converts a two dimensional array into an int pointet type.See the following topic to understand :
+		int a[10][10];
+		int *p;
+		unlike in normal array cases, we cant do p=a; This will produce an type cast error. We cant convert an int to an int* type so we have the cast the int into an int* as:
+		p=(int*)a;
+	
+	Similarly for a two dimensional array we can use a pointer to reduce it into a one dimensional array as:
+	int a[10][10],*p;
+	p=(int*)&a[1][]; This means that p now points to the first row of a hence p+i will the ith element of the array at the 1st position in a (remember a is an array of arrays).
+	we can excess each element as *(p+i) and then to point to the next array all we have to do is p=p+(index*row_lenght) and p will then point to the array at the inde specified.
+ 
+PASSING ARRAYS AS ARGUMENTS TO FUNCTIONS :
+	It is not possible to pass an entire one dimension array as an argument to a function in c++. But the same effect can be achieved by being creative in a number of ways. First thing first, we have to prepare a function while defining it in such a way that it is ready to recieve an array as its argument. So we play with the parameters of the function in the following 3 ways:
+	1) int func(int arr[10]){...}
+	2) int func(int arr[]){...}
+	3) int func(int *p){...}
+	In all the above cases the function func now accepts an address to the first element of an int array (to be more precise though, our function can work with any address as its argument). Now let us give our function some address as its argument:
+	func("some address"); Now based on this the function will react in three different ways depending on its declaration.
+	1) If the function was declared in this fashion, the address pased as the argument will be the address of the first element of the int array of size 10 and can be used inside the function body.
+	2) The address is now the address of the  first element of this unsized array.
+	3)The address is passed on to this pointer p. p now points to this address and hence can be used in any way a normal pointer could be used, but for our purpose we can use it to manipulate an array.
+	Now imagine an array int haha[10]. simply do this func(haha) to acheive one of the above three effect. Remember we are just passing an address to our function (haha means &haha[0]).
+	
+	When a two-dimensional array is used as an argument to a function, only a pointer
+	to the first element is actually passed. However, the parameter receiving a two-dimensional
+	array must define at least the size of the rightmost dimension. (You can specify the left
+	dimension if you like, but it is not necessary.) The rightmost dimension is needed
+	because the compiler must know the length of each row if it is to index the array
+	correctly. For example, a function that receives a two-dimensional integer array with
+	dimensions 10,10 is declared like this:
+	int func(int arr[][10]){...};
+	similarly When passing multidimensional arrays into functions, you must declare all but
+	the leftmost dimension in the parameter list of the function.
+
+POINTERS TO FUNCTIONS :
+	int add(...)
+	{};
+	This function too has an address in memory which can be pointed by a pointer. just like in an array the name alone of the function 'add' is actualy a shorthand of specifying the starting address of the memory block which defines this function. So we can use the following syntax:
+	add means &add(...)
+	The pointer pointing to a function must have the same type as the return type of the function it is pointing to. But unlike the normal pointer declaration, we have to specify the number and type of arguments the function to be pointed is expected to have. So for example if we have to declare a pointer which points to the following function:
+	int add(int a,int b);
+	we will doing something like this:
+	int (*p)(int,int);
+	The above statement means that the pointer p points to a function that return an int value and has two arguments both being int in this case. Basically it tells the compiler to reserve that much space so as to occupy the function arguments as well for the pointer so that it can store and use these arguments.
+	Now our pointer p is ready to point to the add function:
+	p=add; // evaluates the same as this illegal but meaningfull statment : p=&aff(int,int);
+	
+	The main use of this tool is to pass a function as an argument to another function. The function which is expected to have a pointer to another function as its argument shoud be defined in a special manner. For example :
+	int big_function(int a,int (*ptr)(int,int)); means that this function is expecting a pointer which points to a function returning an int and having two int arguments.
+	big_function can use ptr like this:
+	int big_function(int a,int (*ptr)(int,int))
+	{
+		return a+(*ptr)(2,3); // Basicaly add(2,3) can be called as (*ptr)(2,3) assuming that ptr points to add following the manner explained above.
+	}
+	Remember, its the calling function's duty to give actual values as arguments to our pointed function inside its(callig function's) body.
+	The use of () around *ptr when calling the function it points to is not necassary but is popular as it directly tells that a function has been called usnig a pointer. Another simpler syntax of doing the same thing inside the calling function would be:
+	ptr(2,3); But this can sometimes confuse us as we might think that we are calling a function named ptr but actualy we are not. So instead of "return a+(*ptr)(2,3);" , we could alsohave used "return a+ptr(2,3);"
+	
+	Another thing to consider is that we could have eliminated the use of a pointer completely in the first place in the above example by calling the big_function as: big_function(3,add);
+	the declaration of the big_function ofcourse will remain the same.
+	
+	This whole concept can be used as an alternative to switch statements where for every different case we call differet function like in a calculator program. Using this we can simply create an array of function pointers and call the required function by altering the index of the array.
+	
+	Overloaded functions can also assigned to a pointer. Care should be taken as to how the pointer is defined argument wise so as to be clear on which overloaded version of a function is the pointer is supposed to point to.
+	
+POINTER TO OBJECTS OF CLASSES/STRUCTURES :	
+	class abc
+	{};
+	 abc obj;
+	obj.member();
+	similarly 
+	abc *ptr=new abc();
+	(*ptr).member();
+	there is shorthand for this though
+	ptr->member();
+	so :(*ptr).member() ====ptr->member();
+	
+	The same can done with the members of a structure.
+	
+THE THIS POINTER :
+	Refer to the class section in data types.
+	
+POINTERS TO DERIVED TYPES:
+	Assume A is the base class and B is derived from A. A pointer of type A* can point to an object of class B. This is an important exception to the rule that pointers of one type can not point to objects of other types. The reverse is not possible though. The important thing to know is that the pointer of the base class can be used to access only those members of the derived class that were inherited from the Base class.
+	class A
+	{
+		int i;
+	};
+	class B: pubilc A
+	{
+		int j;
+	};
+	Now,
+	A *p;
+	B obj;
+	p=&obj;
+	p->i // will work
+	p->j //will not work
+	
+	In order to gain full access to the members of the derived class via the pointer of the base class, we can cast the base class pointer into a derived class pointer type. 
+	((B *)p)->j //now this will work.
+	
+	You should not however try and increment a base class pointer, because it will then not point to the next derived class objetct. THe pointer arithmatic will be in accordance to the base class, hence this will cause problems.
+	
+	The above concepts are used for run time polymorphism using virtual functions.
+
+POINTERS TO CLASS MEMBERS:
+	We have assigned regular pointers to objects of class. And using these pointers and the arrow operator we were able to access the members of object. But in C++, there is a special pointer, which points only to a class member and not to any object of that class. This type of pointer is called pointer-to-class. Since this pointer is altogethor different from the regular pointer, it has to be given a separate set of operators to work with as well. '.' is replaced by '.*' and '->' is replaced by '->*'. 
+	Suppose an object of size 50, starts at address 300. Suppose that a member of this object is at the 20th position in the whole object space. pointer-to-member takes advantage of this little offset knowledge to access the members alone of the object. So basically, the ptm will now point to the address 300+20, in order to access the desired member.
+	
+	Consider:
+		class A
+		{
+			public:
+				int i;
+				A(int x) {i=x;}
+				int doubleIt()
+				{
+					return 2*i;
+				}
+		};
+		
+		Declaring a ptm for the member i in the class A:
+		
+		int A::*p; //int because p is intended for an integer, A:: because p is special pointer, it points to a member of class A. The member is not specified as of yet. 
+		
+		setting an offset within the class for p:
+		
+		p=&A::i;  // This tells that p is supposed to point to member i of any object of class type A. 
+		
+		Similarly:
+		
+		int (A::*d)(); //This is a pointer to a function, a member function. the() in the end gives difference.
+		d=&A::doubleIt() //assigning a member to d.
+		
+		Usage:
+		
+		A obj1(1), obj2(2);
+		cout<<obj1.*p   // will print 1
+		cout<<obj2.*p   //will print 2
+		
+		cout<<(obj1.*d)() //will return 2
+		cout<<(obj2.*d)() //will return 4
+		
+		So basically, we have kind of (not really though) created members of the class. members that are pointers. pointers to other fellow members. So, obj.*p means, access some member of obj (obj.) and *p means, the newly made member, the pointy one. 
+		Now instead of having obj, we can have a pointer to obj. And then through this pointer we can access these pseudo members of obj.
+		
+		A *ptr=obj;
+		cout<<ptr->*p // Easy isnt it?
+		
+		Difference between regular Pointers and PTMs:
+			A obj;
+			int *p;
+			p=&obj.i; // regular pointer pointing to some int, in this case a member of an object.
+			
+			int A::*p;
+			p=&A::i;  //PTM, can point to the member i of any object of class A from now on wards.
+			
+			Basically, regular pointers just contains a singular address, hence they will always point to only one thing. But PTMs contain offsets within an object, hence they can be used to point to members of any objects. Its like applying the offset to different objects.
+	
+REFERENCES:
+	
+	A reference to a variable/object is another name for the same memory address. It is kind of like pointing to a variable but with modesty.
+	int x=10;
+	int &y=x; // a reference must always be initialized
+	y++;
+	cout<<x //will print 11
+	
+	A reference variable can only refer to one thing and one thing only for ever and ever.
+	
+	int x=2,y=5;
+	int &r=x;
+	//refering to x now
+	r=y;
+	//still refering to x, but  now x will containg value of y, because r refered to x.
+	
+	Call by reference:
+		Call by reference can be implemented by using pointers. This is forcing the issue:
+			void twice(int *i)
+			{
+				*i=2*(*i);
+			}
+			int main()
+			{
+				int x=10;
+				twice(&x);  //after this statement, changes made by twice() will reflect permanently to x.
+				return 0;
+			}
+			
+		C++, has a neater way of doing this. This involves the use of references and not pointers.
+			void twice(int &i)  // i is a reference to whatever argument passed at the time of calling. 
+			{
+				i=2*i;   //changes made to i will reflect to the argument which i refers to as well.
+			}
+			int main()
+			{
+				int x=10;
+				twice(x);  //No need to pass an address for x. 
+				return 0;
+			}
+			
+	Returning References:
+		A function when returning a value, can be used on the right hand side of an assignment operator i.e. the value returned by the function can be assigned to some other variable.
+		But what if the function returns reference? In that case we can actually assign something to the value returned by the object. Think of it as this, object returns a nickname of something, we can assign this nickname an actual variable. Basically the function will return a bucket (empty/full) and we can fill or replace the bucket.
+		
+		imagine, a string "govind.sharma" //replace the '.' with a space:
+		#include<iostream>
+		#include<cstring>
+		using namespace std;
+		
+		char &dot(string &x)    //The function will  return a bucket i.e. a reference
+		{
+			int i;
+			for(i=0;i<x.length();i++)
+			{
+				if(x[i]=='.')
+				{
+					break;
+				}
+			}
+			return x[i];     //instead of passing the value of x[i], this will return the bucket containing x[i]
+		}
+		int main()
+		{
+			string x;
+			cout<<"Enter your string\n";
+			cin>>x;
+			dot(x)=' ';     //change the contents of the bucket
+			cout<<x;        //Since the function was call by reference, we are able to see the results through the original variable.
+							//Call by value concept can also be used with this concept.
+			return 0;
+		}
+			
+		Call by value example:
+			see book at page 345
+	References to Derived Types
+		Similar to the situation as described for pointers earlier, a base class reference can be used to refer to an object of derived class. The most common application of this is found in function parameters. A base class reference parameter can receive objects of the base class as well as any other type derived from that base.
+		
+	Restrictions to References
+		There are a number of restrictions that apply to references. You cannot reference another reference. Put differently, you
+		cannot obtain the address of a reference. You cannot create arrays of references. You cannot create a pointer to a reference. You cannot reference a bit-field. A reference variable must be initialized when it is declared unless it is a member of a class, a function parameter, or a return value. Null references are prohibited.
+			
+			
+POLYMORPHISM:
+	Imagine a base class and a derived class. Now imagine a pointer of the type of the base class. Now, consider that we give the address of the object of the derived class to this pointer. Now this pointer is pointing to the object of the derived class, but when calling overloaded functions through this pointer, the results that we will get will be in accordance to how these overloaded functions were written in the base class. This is because, the pointer is of the type of the base class and hence even if it is pointing to the derived class' object, the functions it points to are that of the base class type. This is where polymorphism comes into play in telling the compiler about what function to call corresponding to what objects. Pointers are not a solution. Sure a pointer will point you to the object it self, but remember, an object does not contain functions. Functions are stored with the class definition. So only those functions will be called through the pointer which belong to the type of which the pointer is.
+	
+ASSIGNING DERIVED CLASSES TO BASE CLASS POINTERS AND VICE VERSA:
+	Base *b;
+	b=&obj_of_derived_class;
+	truncation will occur of the obj_of_derived_class.

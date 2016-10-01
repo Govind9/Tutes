@@ -1,0 +1,48 @@
+BASIC :
+	type name1,name2,...nameN;
+
+LOCAL/GLOBAL VARIABLES :	
+	a local variable is one which exists in memory only when the control starts executing the block in which the variable is defined. and once the block is passed the variable is destroyed from memory.
+	
+	any variable can be made local by adding the keyword 'auto ' to it although by default all the non-global variable are auto.
+	
+	a local variable will the lose the value it had once we have come out of its block. so to make a local variable retain the values stored even after the block has been passed by and untill the block is entered again in the same program, use the 'static keyword'.You can give a static local variable an initialization value. This value is assigned only once, at program start-up—not each time the block of code is entered, as with normal local variables. Applying the specifier static to a global variable instructs the compiler to create a
+	global variable that is known only to the file in which you declared it.
+	
+	a variable declare inside main is also an global variable.
+
+VARIABLE ACCESS/MODIFICATION CONTROL :
+	specifying how a variable can be accessed or modifeid is done by 'const' and 'volatile' keywords. they are prrceeded by the type name and the identifier eg: const int x;
+
+
+
+A variable can have one defination but multiple declarations.
+
+USE OF EXTERN :
+	if we intend to use a variable which is defined after or in some other file then what we do is - we declare that variable again(remember the multiple declaration rule) and this time make it extern (telling the compiler to find the defination after this statement or in some other file in the program) and then use it.
+
+FAST VARIABLES :
+	register int x; any value of x will now be stored in a register in the cpu and not in the memory like all normal variables and hence it will be faster to access and modify because the call to memory will be skipped by the cpu as the variable is present there only.
+
+VARIABLE INITIALIZATION : 
+	type name1='value';
+
+	Uninitialized global and static local variables are automatically set to zero.
+
+CONSTANTS :
+	To specify a wide character
+	constant, precede the character with an L. For example,
+	wchar_t wc;
+	wc = L'A';
+
+	Data type       Constant examples
+	int             1 123 21000 -234
+	long int        35000L -34L
+	unsigned int    10000U 987U 40000U
+	float           123.23F 4.34e-3F (because by default this constant will be treated as a double)
+	double          123.23 1.0 -0.9876324
+	long double     1001.2L
+
+	A hexadecimal constant must consist of a 0x followed by the constant in hexadecimal form. An octal constant begins with a 0. Here are some examples:
+	int hex = 0x80; /* 128 in decimal */
+	int oct = 012; /* 10 in decimal */

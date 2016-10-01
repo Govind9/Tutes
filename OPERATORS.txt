@@ -1,0 +1,142 @@
+ARITHMATIC :
+	Operator                Action
+	-                       Subtraction, also unary minus
+	+                       Addition
+	*                       Multiplication
+	/                       Division (truncates the remainder when used on ints)
+	%                       Modulus(cant use on floats)
+	--                      Decrement
+	++                      Increment
+
+	++x/--x: the incr/decr thing is done before the variale x is used in the expression. 
+			 eg: x=10; y=++x; means y==11 but y=x++ would mean y=10; in both cases though x will certainly be set to 11. the difference is timing of it hapening.
+
+LOGICAL : 
+	They return a boolean value (True/false).0 is converte to false and any non zero value to true. Conversly false means 0 and true means 1.
+	&& (AND)
+	||(OR)
+	! (NOT)
+
+RELATIONAL : 
+	They too retrun a bool value.
+	>
+	<
+	>=
+	<=
+	==
+	!= 
+
+BITWISE :
+	They can be used only on int and char.They have the same truth tables as the logical ones do, the only difference being that unlike them they act on single bits rather the whole value.
+	Operator Action
+	&        AND
+	|        OR
+	^        Exclusive OR (XOR)
+	~        One's complement (NOT)
+	>>       Shift right   [value >> number of bit positions]
+	<<       Shift left    [value << .number of bit positions]
+
+	for exmpl: 100 & 127 will return 100 [working on bits indivisualy].
+	These can retrun any value as we just saw unlike logical and relational opr [bool only].
+	Shifting to one side pads up the other end with zeroes (in case of negative numbers the sign bit is preserved), and the numbers shifted are not rotated back - they are lost.eg. x=1; x<<1 means multiply by2 and x>>1 means divide by 2.
+	unsigned char x;         x as each statement     value of x
+								executes 
+	x = 7;                   0 0 0 0 0 1 1 1            7
+	x = x<<1;                0 0 0 0 1 1 1 0           14
+	x = x<<3;                0 1 1 1 0 0 0 0          112
+	x = x<<2;                1 1 0 0 0 0 0 0          192
+	x = x>>1;                0 1 1 0 0 0 0 0           96
+	x = x>>2;                0 0 0 1 1 0 0 0           24
+	*Each left shift multiplies by 2. Notice that information has been lost after x<<2 because
+	a bit was shifted off the end.
+	**Each right shift divides by 2. Notice that subsequent divisions do not bring back any
+	lost bits.
+
+SPECIAL :
+	1) Assignment operator (=) :
+			variable=expression.
+			(lvalue)  (rvalue)
+			in an assignment operator the value of the rhs is converted to the type of the lhs variable.
+			multiple assignments: x=y=z=0;
+
+	2) The ? operator : 
+			expression1 ? expression2 : expression3;
+
+	3) The & operator(unary) : 
+			It return the the address of its operand.
+
+	4) The * operator(unary) :
+			It is the compliment of &. It return the value at address written with it as its operand. So *room_no._9 will return jugraj singh. The operand to this should always have an address as its value. SO *p will work only if p contains some address.
+
+	5) The sizeof operator : 
+			sizeof is a unary compile-time operator that returns the length, in bytes, of the variable
+			or parenthesized type-specifier that it precedes. eg assuming that int is 4 bytes and double is 8 bytes - sizeof(int)==4 and double x=44; sizeof(x)==8.There is no need to put the parenthesis in case of using this on a variable. Now the value returned by this is not of type int completly, it is closly related to an unsigned int but actualy it is of a special type 'size_t'. The sizeof operator is evaluated at compile time and its value is treated as a constant in the program.
+
+	6) The comma operator (,) : 
+		The comma operator is used to do multiple expressions togethor in one statement.eg-
+		x=(y=3,y=y+1). This line basicaly is of the form : x=(something), so it is doing nothing but assigning x some value. What the comma operaor does here is that enable us to do 2 things at one time in one statement.two things happen to our "something" before it is assigned to x, a) y=3 and b) y=y+1. The rule is that the expression on the right side of the ',' is the one that is actualy used eventualy and that the left side expression is just making a difference. So x = right side to the comma == y=y+1 only but before that happens we did something else also which is y=3[making a difference]. The parenthesis are important as otherwise the ',' has lower precedance than the assignment operator.This can be used in a for loop for initialization of multiple loop counters
+
+	7)the dot operator (.) : 
+			accessing members of objects of classes, structs or unions.
+
+	8)the -> operator : a
+			ccessing members of objects of classes, structs or unions using pointers.
+
+	9) the parenthesis () operator : 
+			The expression inside this gets the first precedance.
+
+	10) The [] operator : 
+			Used for array indexing.
+
+	11) The Cast operator : 
+			(any valid data type) expression.
+
+	12) const_cast :
+
+	13) static_cast :
+
+
+
+
+PRECEDANCE OF OPERATORS:
+
+Highest      ( ) [ ] -> .
+             ! ~ ++ – – (type) * & sizeof
+             * / %
+             + -
+             << >> 
+             < <= > >=
+             == !=
+             & 
+             ^ 
+             |
+             &&
+             ||
+Highest      ?:
+             = += -= *= /= etc.
+Lowest       ,
+
+operators at the same level of precedance are evaluated from left to right.
+Except for ?: and unary operators like * and & and - which are evaluated from right to left.
+
+
+OPERATOR OVERLOADING:
+	This is used to provide special functionality to user defined classes.
+	Operator functions can be members of the class or even nonmembers of the class.
+	
+	Member operator functions:
+		return_type classname::#(arg-list)
+		{}
+		
+		For unary operator functions, the arg list will be empty.
+		The return type is usualy an object of the class, but it can be anything,
+		Binary operator functions will have one argument.
+		
+		Consider this: C=A+B;
+		Here, + is a binary operator. It takes two arguments. But when + is not an operator and is an operator function istead, it needs an object for its invocation (+ function is a member remember). So basically, + needs a calling object which can also act as one of the arguments for +. Now another argument is needed as + is supposed to be a binary operator function. So in A+B, A is the calling object as well as argument number one, and B is the second and actual argument. Now since + is supposed to return another object, one shal be created in its definition.
+		classname classname::operator +(classname B)
+		{
+			classname temp; // to be returned
+			temp.x=x+B.x  //the simple x belong to A, the calling object
+			return temp;
+		}

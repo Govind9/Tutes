@@ -1,0 +1,244 @@
+auto :
+	to make a variable local[is there by default for every non-global variable].it is also an storage class specifier.
+
+double : 
+	data type
+
+int : 
+	data type
+
+struct :
+	struct person
+	{
+		int age;
+		string address,name;
+	};
+	It is ended with a ; because a function declaration is a statement.
+	person p1,p2;
+
+break : 
+	It jumps out directly from a block in which is it is present. eg switch and loop.Unlike the break statement which only gets us out of one block the exit() function gets us out of the entire program.
+
+else : 
+	used with the if statement.
+
+long :
+	data type specifier 
+
+switch : 
+	switch(expression)
+	{
+		case constant1 : 
+					statement sequence
+					break;
+		case constant2 : 
+					satement sequece
+					break;
+		.
+		.
+		.
+		default : 
+					statement sequence 
+					break;
+		
+	}
+	
+	The expression in the switch must evaluate to a character or an int value this value is then mathched with the constants infront of the cases. Character constants inthe switch satements are also automaticaly converted into ints.
+
+case : 
+	although this is a label but it cant exist alone without the switch satement! If suppose we want something same to happen corresponding to more then one constant case we use the following tick:
+	case 1:
+	case 2:
+	case 3:
+		"statement"
+		break;
+	so over here the the first to cases dont actualy do anything but since they dont have a break statement in them the control simple drops down to the next case statement. So essentialy the three cases 1,2 and 3 do the same thing which is determined by the statement in case 3.
+
+enum : 
+	used for enumerations. for details see int he datatype section.
+
+register :
+	It is an storage class specifier. register int x; any value of x will now be stored in a register in the cpu and not in the memory like all normal variables and hence it will be faster to access and modify because the call to memory will be skipped by the cpu as the variable is present there only. Can only be applied to local variable and formalparamets and not to global variables
+
+typedef :
+	You can define new data type names by using the keyword typedef. You are not
+	actually creating a new data type, but rather defining a new name for an existing
+	type
+	
+	typedef type newname;
+	
+	where type is any valid data type and newname is the new name for this type. The new name you define is in addition to, not a replacement for, the existing type name. For example, you could create a new name for float by using 
+	typedef float balance;
+	
+	Now that balance has been defined, it can be used in another typedef. For example,
+	typedef balance overdraft;
+char : 
+	data type 
+
+extern :
+	It is an storage class specifier. extern int x; This means that x is made to link externaly even though it is not necessarily global. which further means that we can use x before even defining it or iniatializing it. In other words if a variable is defined/declared in some other file of the program is needed to be used in other files . we make it extern.
+
+return : 
+	It is a jump statement that jumps back to that point where a subroutine of which this statement is currently a part was called upon in the first place. This may or may not have a value associated with it. Although a function which is non void must have a return statement with a value.The general form is- return expression; 
+	The } at the end of a function also makes it return to the main calling control.
+
+union :
+	Details in dtatypes.
+
+const : 
+	const type name (const int x;). a variable declared const can never have its value changed during the program.used to make sure that the original object isnt altered by some function it is passed to as an argument.It is also an storge class specifier
+
+float :
+	data type 
+
+short : 	
+	data type specifeir
+
+unsigned  : 
+	the MSB is read as the value rather than the sign of the number.
+
+continue : 	
+	It is similar to a break statement. It is used in loops. When encoundered it forces the control to skip all the code following it inside the loop body and start over the next iteration by doing the conditional test and increment stuff.
+
+for : 
+	for(initialization; condition; increment) statement;
+
+	In general .. for(statement1,statement2 ; EXpressions ; Statement3,statement4) {action block}
+	basicaly stmnt1 and stment2 will happen just once before the control enters the loop body for the first time[initialization]. Expressions will be tested each time the control wants to iterate back into the loop body, these expressions must yield a true or false. Stmnt3 and 4 happen each time the control comes out of the loop body and before it goes to the check expressions[making a change between iterations so as to make sure the loop stops sometime soon.]. The stment3 nd 4 can also be written at the end of the action block.
+
+signed : 
+	the MSB is read as the sign 0 for positive 1 for negative .
+
+void : 
+	data type
+
+default : 
+	label 
+
+goto : 	
+	It jumps to any line the code provided that they are in the same scope. Eg u cant jump between to separate functions. It works with a label. A label is any indentifier. Genral form is:
+	goto labelname;
+      ..
+    label: any statment anywhere.
+
+sizeof : 	
+	operator. Tells the size of the operand. sizeof x; or sizeof (int) 
+
+volatile :
+	The modifier volatile tells the compiler that a variable's value may be changed in ways not explicitly specified by the program. This means that a variable can have a change in value without and assignment statement.syntax is same as const.
+
+do : 
+	do {stetements} while(expression);
+
+if : 
+	if(expression) 
+		statement1
+    else
+		statement2
+	The expression may evaluate to either true or false.
+
+static : 
+	to make a local variable sustain its value even after the block is passed on untill the next call to the block. You can give a static local variable an initialization value. This value is assigned only once, at program start-up—not each time the block of code is entered, as with normal local variables.Applying the specifier static to a global variable instructs the compiler to create a global variable that is known only to the file in which you declared it.
+
+while : 
+	while(expression) statement;
+
+mutable : 	
+	It is an storage class specifier.
+	
+asm :
+
+bool :
+ 
+catch :
+
+class : 
+	To create classes.
+	class name{
+		anything.
+	} object list;
+ 
+const_cast :
+
+delete : It frees up memory previosly allocated by new operator. Refer to the new operator.
+
+dynamic_cast :
+
+explicit export :
+
+false :
+
+friend : Used for friend functions. Read the classes part in the data type text for details.
+
+inline : used for inline functions .. read the function text for details.
+
+namespace :
+
+new : Used for dynamic allocation of variables.
+	The new operator allocates memory and returns a pointer to the start of that memory.
+	
+	General form: p_var= new type;
+				  delete p_var.
+	Since the heap is finite, sometimes it is not possible to allocate memory demanded by new. In that case new will either raise an exception 'bad_alloc' which is defined under the <new> header, or new will return a null pointer.
+	int *p;
+	try
+	{
+		p=new int;
+	}
+	catch(bad_alloc obj)
+	{
+		cout<<"Allocation failure\n";
+	}
+	delete p;
+	
+	If by chance you are not a fan of exception handling, there is way of making new return a null value instead of throwing an exception. For this you would have to use the <new> header as well. The nothrow keyword is used:
+	
+	p_var=new(nothrow) type;
+	if(!p_var)
+	{
+		cout<<"Allocation failure";
+	}
+	
+	The delete operator must be used only with a valid pointer previously allocated by using new. Using any other type of pointer with delete is undefined and will almost certainly cause serious problems, such as a system crash.
+	
+	new and delete can be overloaded, giving you an oppurtunity to have a customized allocation system.
+	
+	Initialization can also be done with the new operator: p_var= new type(type compatible initialiation)
+
+	Allocating arrays with new : p_var= new type[size of the array]
+	use this is then like a normal error: p_var[i];
+	follow this by: delete []p_var;
+	
+	Objects can also be allocated using this. Parametrized constructors can be used as well. Arrays of objects when allocated using the new constructor must have a parameterless constructor defined in its definition, since dynamically allocated objects cant be initialized.
+	when deleting a dynamically allocated objects using the delete operator, what actually happens is that the destructor of the object is called and then the object's memory is freed.
+operator :
+
+private :
+
+public :
+
+protected :
+
+reinterpret_cast :
+
+static_cast :
+
+template :
+
+this :
+
+throw :
+
+true :
+
+try :
+
+typeid :
+
+typename :
+
+using :
+
+virtual : Needed for polymorphism. Works only when pointers of the base class are used. Read Polumorphism in Data Types under clases.
+
+wchar_t :

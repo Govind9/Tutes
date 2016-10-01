@@ -1,0 +1,31 @@
+Download QT ... open qt sdk
+
+the basic library to be included is #include<QtGui/QApplication>
+and the main method should return the exec() function of the object of class QApplication it looks like: #include<QtGui/QApplication>
+int main()
+{
+QApplication obj;
+return obj.exec();
+}
+
+to include a lable use : #include<QLabel>
+create object : QLabel obj("the message");
+call the function: obj.show();
+this shoould probabily be done in pointer object new concept
+
+for button: #include<QPushButton>
+QPushButton onj("PUSH THIS!")
+onj.show();
+
+TO add functionality to widget we need to connect it to various functions using the connect function ofcourse.. This function belongs to the class QObject and can be called directly using the :: operator
+
+QObject::connect(the widget object name,SIGNAL(),&the main QApplication OBJECT,SLOT());
+
+the SIGNAL() generates a signal and this signal is caught by the SLOT() function. SO there to things to decide:
+when do we want to generate the signal using SIGNAL()
+[eg. use SIGNAL(clicked()).... when clicked on the widget generate the signal]
+what to do once the signal has been sensed using SLOT()
+[eg. SLOT(quit()).... quit when this slot cathes a signal]
+
+
+all of this needs to happen before the widget shows anything using the show() function.
