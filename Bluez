@@ -1,0 +1,73 @@
+Sending files from a phone to raspberry pi:
+    
+    1. Make sure you have the latest available OS version running on pi:
+        sudo apt-get update
+        sudo apt-get dist-upgrade
+        sudo apt-get upgrade
+    
+    2. Install necessary bluetooth packages:
+        sudo apt-get install pi-bluetooth
+        sudo apt-get install bluetooth
+        sudo apt-get install bluez
+        sudo apt-get install blueman
+        sudo apt-get install bluez-tools
+        sudo apt-get install bluez-utils
+    Many of these may already be installed on your system but it doesn't hurt to be sure, so run the above commands anyway.
+    
+    3. Reboot your system:
+        sudo reboot
+    
+    4. Check to see if your bluetooth is working:
+    List the adapter:
+        hciconfig
+    Power up the adapter if it is down
+        hciconfig hci0 up
+    Scan nearby devices:
+        hcitool scan
+    This command will list the nearby bluetooth device, their names and Mac addresses, it helps to copy the Mac address of the device you wish to connect to in the future.
+    
+    5. Service discovery:
+    List out the service offered by pi:
+        sudo sdptool browse local | grep "Service Name"
+    This will list out the names of the services currently offered by pi. In order to receive files Object Push Profile service is needed. If it is listed then all is set, otherwise you need to install it either following this tutorial (for a detailed installation): 
+        http://www.instructables.com/id/Make-Raspberry-Pi-device-become-a-Bluetooth-Object/step0/Make-Raspberry-Pi-device-become-a-Bluetooth-Object/ 
+    OR simply follow these instructions:
+        sudo apt-get install obexpushd
+    Check if the obex-data process is already running:
+        ps auwx | grep obex-da
+        kill -9 XXXX
+    Where XXXX is the process id of obex-data process if it at all running.
+    Start the installed obexpushd service:
+        sudo obexpushd -B -n
+    It should have the following output:
+        This software comes with ABSOLUTELY NO WARRANTY.
+        This is free software, and you are welcome to redistribute it
+        under certain conditions.
+        Listening on bluetooth/[00:00:00:00:00:00]:9
+        
+    6. Pairing and connecting to phone:
+    Fire up another terminal window and start the bluetooth CLI:
+        bluetoothctl
+    This will start an interactive session using which we can do a variety of things including connecting to devices etc. To check the available command type help.
+    To get a better understanding of how to use this CLI, go to the following link:
+        https://wiki.archlinux.org/index.php/Bluetooth#Bluetoothctl
+    Or simple type in the following commands:
+        power on
+        scan on
+        devices
+        pair <Mac address of the phoen, copied during hcitool scan>
+        trust <Mac address of the phone>
+        connect <Mac address of the phone>
+    
+    7. Send files from the phone.
+    Once the pairing is done and the connection is established, you can use your phone to select any file and send it pi.
+    At the terminal where obexpushd is running you should be able to see a new file being created as the phone is sending it.
+    
+    8. Close obexpushd:
+        ctrl + c
+        
+    9. Close bluetoothctl:
+        quit
+       
+    10. Close adapter:
+        hciconfig hci0 down
