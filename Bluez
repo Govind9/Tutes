@@ -21,7 +21,7 @@ Sending files from a phone to raspberry pi:
     List the adapter:
         hciconfig
     Power up the adapter if it is down
-        hciconfig hci0 up
+        sudo hciconfig hci0 up
     Scan nearby devices:
         hcitool scan
     This command will list the nearby bluetooth device, their names and Mac addresses, it helps to copy the Mac address of the device you wish to connect to in the future.
@@ -54,6 +54,7 @@ Sending files from a phone to raspberry pi:
     Or simple type in the following commands:
         power on
         scan on
+        agent on
         devices
         pair <Mac address of the phoen, copied during hcitool scan>
         trust <Mac address of the phone>
@@ -70,4 +71,4 @@ Sending files from a phone to raspberry pi:
         quit
        
     10. Close adapter:
-        hciconfig hci0 down
+        sudo hciconfig hci0 down
