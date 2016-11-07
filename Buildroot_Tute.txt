@@ -1,0 +1,59 @@
+Using Buildroot:
+
+1. Install necessary packages:
+	sudo apt-get install sed make binutils gcc g++ bash patch gzip bzip2 perl tar cpio python unzip rsync whet libncurses-dev
+2. Clone Buildroot:
+	git clone git://git.busybox.net/buildroot
+	OR
+	git clone http://git.buildroot.net/git/buildroot.git
+3. Checkout to the following branch:
+	git checkout -b felabs 2016.05
+4. Change directory to the cloned directory and start the configuration process:
+	cd buildroot
+	
+	make menuconfig
+5. Now it is time to configure the required options in order to build a rootfs:
+	1) Target Options menu:
+		Target Architecture should be "ARM (little endian)"
+		Target Architecture Variant should be "cortex-A8"
+		
+		You can leave the rest of the configuration be as they are.
+	2) Build options menu:
+		There is no need to change anything in this section.
+	3) Toolchain menu:
+		There is a pre-built toolchain provided by Linaro for ARM7 platforms. We will use it:
+		Toolchain type should be "External Toolchain"
+		
+		Toolchain should be "Linaro 2016.02"
+	4) System configuration menu:
+		There is not much to configure here, but you need to take a look at the System hostname, System banner and Root password.
+		You can aslo choose to enter a value for these fields for yourself as well.
+	5) Kernel Menu:
+		Enable the Linux kernel option.
+		By default the latest kernel version will be selected, you can chose to change that.
+		
+		You can configure the whole kernel from scratch or you can choose to start from a defconfig and then make changes to it. 
+		For example, if you are building an environment for Beagleboneblack then you should be enter "omap2plus" in the Defconfig name section.
+		
+		Then it is required to specify the dtb to be chosen, this depends on your board type. 
+		For example for BBB, the value to be entered should be "am335x-boneblack" in the Device Tree Source file names.
+	6) Target packages menu:
+		You can choose to add packages to your system from this option like NFC, Bluetooth, etc.
+	7) Filesystem images menu:
+		Select the preferred compression method for your filesystem image in this section.
+		For example: choose cpio as the root filesystem and then choose lzma as the compression method.
+	8) Bootloaders menu:
+		Enable Uboot in the configuration.
+		
+		Select Kconfig as the build system.
+		
+		Look at http://git.denx.de/?p=u-boot.git;a=tree;f=configs to identify available U-Boot configurations.
+		For example, you can choose am335x_boneblack for BBB.
+	
+6. This is it for the configuration. Now in order to build the environment, apply:
+	make
+	
+	OR, to maintain a log of any erros that may occur, use:
+	
+	make 2>&1 | tee build.log 
+	
