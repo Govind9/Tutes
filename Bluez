@@ -1,3 +1,6 @@
+Finding  adapter manufacturer:
+    hciconfig -a hci0
+
 Sending Files from pi to phone:
     
     1. Make your phone a ftp server,
@@ -21,6 +24,7 @@ Sending Files from pi to phone:
         scan on
     Select (copy) the Mac address of the phone you want to send files to.
         pair <MAC address>
+        trust <MAC address>
     Open up another terminal and send the file using the following command:
         obexftp -b <MAC> -p /Path/To/File
         
