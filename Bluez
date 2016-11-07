@@ -1,3 +1,30 @@
+Sending Files from pi to phone:
+    
+    1. Make your phone a ftp server,
+        Install the following app from playstore:
+        "Astro Bluetooth Module" By Metago
+        After the app install, open it and tick on the following three if ther are disabled:
+            Bluetooth
+            Discoverable
+            OBEX FTP Server
+    
+    2. Make your pi FTP capable:
+        sudo apt-get update
+        sudo apt-get install obexftp
+    
+    3. Pair to phone from pi:
+        bluetoothctl
+    In the interactive shell, type in the following commands":
+        power on
+        agent on
+        default-agent
+        scan on
+    Select (copy) the Mac address of the phone you want to send files to.
+        pair <MAC address>
+    Open up another terminal and send the file using the following command:
+        obexftp -b <MAC> -p /Path/To/File
+        
+
 Sending files from a phone to raspberry pi:
     
     1. Make sure you have the latest available OS version running on pi:
