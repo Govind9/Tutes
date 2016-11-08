@@ -1,8 +1,38 @@
-Finding  adapter manufacturer:
-    hciconfig -a hci0
+General Setup:
+    
+    1. Make sure you have the latest available OS version running on pi:
+        sudo apt-get update
+        sudo apt-get dist-upgrade
+        sudo apt-get upgrade
+    
+    2. Install necessary bluetooth packages:
+        sudo apt-get install pi-bluetooth
+        sudo apt-get install bluetooth
+        sudo apt-get install bluez
+        sudo apt-get install blueman
+        sudo apt-get install bluez-tools
+        sudo apt-get install bluez-utils
+    Many of these may already be installed on your system but it doesn't hurt to be sure, so run the above commands anyway.
+    
+    3. Reboot your system:
+        sudo reboot
+        
+    4. Start Bluetooth service if it is not started:
+        sudo /etc/init.d/bluetooth start
+        
+    5. Check to see if your bluetooth is working:
+    List the adapter:
+        hciconfig
+    Power up the adapter if it is down
+        sudo hciconfig hci0 up
+    You can find more information about your adapter using:
+        hciconfig -a hci0
+    Scan nearby devices:
+        hcitool scan
+    It helps to copy the Mac address of the device you wish to interact with.
 
 Sending Files from pi to phone:
-    
+   
     1. Make your phone a ftp server,
         Install the following app from playstore:
         "Astro Bluetooth Module" By Metago
@@ -31,33 +61,7 @@ Sending Files from pi to phone:
 
 Sending files from a phone to raspberry pi:
     
-    1. Make sure you have the latest available OS version running on pi:
-        sudo apt-get update
-        sudo apt-get dist-upgrade
-        sudo apt-get upgrade
-    
-    2. Install necessary bluetooth packages:
-        sudo apt-get install pi-bluetooth
-        sudo apt-get install bluetooth
-        sudo apt-get install bluez
-        sudo apt-get install blueman
-        sudo apt-get install bluez-tools
-        sudo apt-get install bluez-utils
-    Many of these may already be installed on your system but it doesn't hurt to be sure, so run the above commands anyway.
-    
-    3. Reboot your system:
-        sudo reboot
-    
-    4. Check to see if your bluetooth is working:
-    List the adapter:
-        hciconfig
-    Power up the adapter if it is down
-        sudo hciconfig hci0 up
-    Scan nearby devices:
-        hcitool scan
-    This command will list the nearby bluetooth device, their names and Mac addresses, it helps to copy the Mac address of the device you wish to connect to in the future.
-    
-    5. Service discovery:
+    1. Service discovery:
     List out the service offered by pi:
         sudo sdptool browse local | grep "Service Name"
     This will list out the names of the services currently offered by pi. In order to receive files Object Push Profile service is needed. If it is listed then all is set, otherwise you need to install it either following this tutorial (for a detailed installation): 
@@ -76,7 +80,7 @@ Sending files from a phone to raspberry pi:
         under certain conditions.
         Listening on bluetooth/[00:00:00:00:00:00]:9
         
-    6. Pairing and connecting to phone:
+    2. Pairing and connecting to phone:
     Fire up another terminal window and start the bluetooth CLI:
         bluetoothctl
     This will start an interactive session using which we can do a variety of things including connecting to devices etc. To check the available command type help.
@@ -91,15 +95,15 @@ Sending files from a phone to raspberry pi:
         trust <Mac address of the phone>
         connect <Mac address of the phone>
     
-    7. Send files from the phone.
+    3. Send files from the phone.
     Once the pairing is done and the connection is established, you can use your phone to select any file and send it pi.
     At the terminal where obexpushd is running you should be able to see a new file being created as the phone is sending it.
     
-    8. Close obexpushd:
+    4. Close obexpushd:
         ctrl + c
         
-    9. Close bluetoothctl:
+    5. Close bluetoothctl:
         quit
        
-    10. Close adapter:
+    6. Close adapter:
         sudo hciconfig hci0 down
