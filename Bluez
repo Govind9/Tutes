@@ -107,3 +107,45 @@ Sending files from a phone to raspberry pi:
        
     6. Close adapter:
         sudo hciconfig hci0 down
+        
+        
+Bluetooth Low Energy:
+    
+    1. Check to see if LE is supporter by your adapter:
+        sudo hciconfig hci0 lestates
+    If this returns a bunch of supported LE states then that is good news, if you get something like:
+        Read LE supported states on hci0 returned status 1
+    Then this means that LE is not supported by your adapter i.e. hci0
+    
+BLE Peripheral beacon:
+    Steps have been taken from the following link: 
+        http://www.wadewegner.com/2014/05/create-an-ibeacon-transmitter-with-the-raspberry-pi/
+    
+    0. Install important things:
+        sudo apt-get install libusb-dev 
+        sudo apt-get install libdbus-1-dev 
+        sudo apt-get install libglib2.0-dev --fix-missing
+        sudo apt-get install libudev-dev 
+        sudo apt-get install libical-dev
+        sudo apt-get install libreadline-dev
+        sudo apt-get install xclip
+    
+    1. Start advertising in non connectable state:
+        sudo hciconfig hci0 leadv 3  (use 0 for connectable)
+        sudo hciconfig hci0 noscan
+       
+    2. Generate a UUID for your beacon:
+        python -c 'import sys,uuid;sys.stdout.write(uuid.uuid4().hex)'|xclip -selection clipboard && xclip -selection clipboard -o && echo
+    This will give out put as:
+        636f3f8f64914bee95f7d8cc64a863b5
+    
+    3. Broadcast the UUID:
+        sudo hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 63 6F 3F 8F 64 91 4B EE 95 F7 D8 CC 64 A8 63 B5 00 00 00 00 C8
+    Where replace after 15 and before 00 with the UUID generated in the previous step.
+    
+    4. Download the following app on your android phone:
+        Beacon Scanner
+    And use it to scan the beacon.
+    
+    5. Stop broadcasting by:
+        sudo hciconfig hci0 noleadv
