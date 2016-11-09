@@ -149,3 +149,28 @@ BLE Peripheral beacon:
     
     5. Stop broadcasting by:
         sudo hciconfig hci0 noleadv
+        
+BLE gatttool interaction:
+
+    1. First thing that is required is a BLE peripheral to which to connect to, so for this I used an X-nucleo board
+    
+    2. Scan for le devices:
+        sudo hcitool lescan
+    Copy the address of the device you wish to connect to.
+    
+    3. Open interactive session using the gatttool:
+        sudo gatttool -i hci0 -b <MAC> -I
+    
+    4. In the interactive session, type in the following commands:
+        connect
+    Following this command, the prompt should turn blue indicating the the connection is successful.
+    Read profiles as:
+        primary
+    Read all the available characterstics:
+        char-desc
+    Read the value of a characterstic:
+        char-read-hnd <The characterstic handle>
+    Write to a particular characterstc:
+        char-write-cmd <handle> <Value in Hex>
+    Disconnect:
+        disconnect
