@@ -150,6 +150,23 @@ BLE Peripheral beacon:
     5. Stop broadcasting by:
         sudo hciconfig hci0 noleadv
         
+Reading beacons using Bluez:
+    
+    1. Installations:
+    There is a Python project that utilizes the BLE stack to scan and read beacons. Clone it's source from github:
+        git clone https://github.com/switchdoc/labsBeaconAirPython.git
+    In order to get it to work install the following package apart from the usual Ble packets:
+        sudo apt-get install python-bluez
+        
+    2. Scan and Read the beacons:
+        cd BeaconAirPython/ble
+        sudo python testblescan.py
+    This will list out beacon data in the following format:
+        Beacon Mac Address, UUID, Major number, Minor number, TX power, RSSI.
+        
+    3. In order to simulate beacons from your Android phone, install and use the following app:
+        Beacon Simulator.
+        
 BLE gatttool interaction:
 
     1. First thing that is required is a BLE peripheral to which to connect to, so for this I used an X-nucleo board
