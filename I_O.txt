@@ -55,3 +55,9 @@ C++ STYLE I/O :
 	cout<<x;
 	Now suppose that you enter the following string "THIS IS life" then the output will be only "THIS"
 	Because the >> reads till the first white space is encountered.
+	
+	Adding colors to text using ostreams:
+		All you have to do is inclose the text to be displayed in a sequence code:
+		"\033[X;Ym" << WHATEVER YOU WANT PRINTED << "\033[0m"
+		Where X is 0 for normal boldness, and is 1 for boldness
+		and Y is the color code which is 31 for Red, 32 for Green and 34 for Blue.
