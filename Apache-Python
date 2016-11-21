@@ -22,5 +22,8 @@
 5. Call these scripts in your html pages by refereing to them as "cgi-bin/script_name". For example:
   <form action="cgi-bin/som.py>
   
+6. Enable cgi:
+  sudo a2enmod cgi
+  
 6. Restart apache
   sudo service apache2 restart
