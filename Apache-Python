@@ -1,0 +1,26 @@
+1. Install Apache:
+  sudo apt-get install apache2
+ 
+2. Make changes in the configuration to enable cgi and give path to the scripts
+  sudo vim /etc/apache2/sites-enables/00*
+  Add the following after the first line:
+  ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+        <Directory "/usr/lib/cgi-bin">
+                AllowOverride None
+                Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+                Require all granted
+                Allow from all
+        </Directory>
+3. Create a directly in /usr/lib and name it cgi-bin. Its permissions shoulbe 755
+4. Add scripts in this directory. An example file is: som.py:
+  #!/usr/bin/python
+  print("Content-Type: text/html")
+  print()
+
+  print("Hey")
+
+5. Call these scripts in your html pages by refereing to them as "cgi-bin/script_name". For example:
+  <form action="cgi-bin/som.py>
+  
+6. Restart apache
+  sudo service apache2 restart
