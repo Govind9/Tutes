@@ -57,3 +57,26 @@ Using Buildroot:
 	
 	make 2>&1 | tee build.log 
 	
+
+Installation of some things on Buildroot:
+	
+	1. libusb-dev
+		Search for libusb (prompt)
+	2. xclip
+		prompt is xclipboard
+	3. libdbus-1-dev
+	
+	4. libical-dev
+		prompt is libical
+	5. libglib2.0-dev
+		prompt is libglib2
+	6. libudev-dev
+		promtp is eudev (MayBe)
+	7. libreadline-dev
+		Goto Target-packages
+			-> Libraries
+				-> Text and Terminal
+					-> readline
+	8. python-bluez
+	
+	
