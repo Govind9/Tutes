@@ -191,3 +191,5 @@ BLE gatttool interaction:
         char-write-cmd <handle> <Value in Hex>
     Disconnect:
         disconnect
+    Quit:
+        quit
