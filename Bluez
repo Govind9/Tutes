@@ -154,7 +154,7 @@ Reading beacons using Bluez:
     
     1. Installations:
     There is a Python project that utilizes the BLE stack to scan and read beacons. Clone it's source from github:
-        git clone https://github.com/switchdoc/labsBeaconAirPython.git
+        git clone https://github.com/switchdoclabs/BeaconAirPython.git
     In order to get it to work install the following package apart from the usual Ble packets:
         sudo apt-get install python-bluez
         
