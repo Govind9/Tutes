@@ -71,7 +71,10 @@ Installation of some things on Buildroot:
 	5. libglib2.0-dev
 		prompt is libglib2
 	6. libudev-dev
-		promtp is eudev (MayBe)
+		promtp is eudev. 
+		In order to select eudev, you need to select:
+		BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_EUDEV
+			prompt is Dynamic using devtmpfs + eudev
 	7. libreadline-dev
 		Goto Target-packages
 			-> Libraries
