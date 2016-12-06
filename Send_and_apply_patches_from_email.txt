@@ -1,0 +1,72 @@
+Send and apply git patches from your email:
+
+Sending Patches:
+
+	1. Git has a separate utility for this facility. It's called send-email. It may not be installed on your system by default with git, so install it using: 
+		sudo apt-get install git-email
+
+	2. Before you can send emails using git you need to have an email client set up on your system. For sending emails from this you need to know the smtp server for the email provider that you are intending to use to send these emails. You can get the smtp server address by a Google search like: "smtp server for gmail", where gmail is of course an email provider. The smtp server address for gmail is "smtp.gmail.com" and the smtp protocol is hosted at port 587. 
+
+	3. Install msmtp mail client:
+		sudo apt-get install msmtp
+
+	4. Configure msmtp creating a .msmtprc file and adding the following to it:
+		defaults
+		tls on
+		tls_nocertcheck
+		logfile /.msmtp.log #Don't forget to create this file and give it 600 permissions
+
+		#Now it's time configure your email accounts, you can have many but here are two examples, one from gmail and other for ST.
+		account st
+			host webmail-ap.st.com
+			port 587
+			from "Your email address"
+			auth login
+			user "Your login username"
+			password "Your password" #This field can be omitted in which case msmtp will ask for the password everytime this account is used.
+
+		account gmail
+			host smtp.gmail.com
+			port 587
+			from "Your email"
+			auth login
+			user "Login name"
+			password "Your password"
+
+		#You can select any of the above accounts as your default account:
+		account default st
+
+	5. Now you need to tell git all about your email settings so as to send patches using the specified email account, protocol, etc. Add following to your .gitconfig file using any text editor in addition to the settings already specified:
+		[user]
+			name = "Your Name"
+			email = "Your email"
+		[sendemail]
+			smtpserver = msmtp
+			smtpserverport = 587
+			smtpuser = "Your email id"
+			smtpencryption = tls
+		
+	6. Finally, you are ready to send patches via email. There is a tone of options that you can explore here (from the man pages) but let's take a simple example. Consider that you want to send the diff from your last commit as a patch using git send-email, then all you need to do is the following:
+		git send-email -1
+	Of course, changing the -1 to some other number would reflect changes back to as many commits.
+	To create patch files for sendin, you can use:
+		git format-patch master
+	Once you have the patch file, you can do the following:
+		git send-email < Your_Patch_File.patch
+	After entering these commands, you'll be asked to fill in the sender's address, etc. Just fill out the informationa and send the email. As a default, you'll also receive a copy of this email on your specified email address. You can turn this feature off too.
+
+Applying Patches:
+
+	1. Applying patches from your mailbox is done using the git-am command. Assuming you have a message (mbox file) in your local mailbox that contains a patch send by someone. In order to apply this patch to your git repository, all you need to do is the following:
+		git-am Path/To/Your/Mbox/File/Containing/The/Patch
+	Again, there are many options and configuration for which the man pages can be refered to.
+
+	2. The main issue here is actually getting the emails to your mailbox from your mail server. There are many options available to be able to do this, one of which is fetchmail. fetchmail is a mail client that fetches mails from a remote IMAP server and stores them in a local mailbox (which is exactly what's required). Install fetchmail:
+		sudo apt-get install fetchmail
+
+	3. You need to configure fetchmail in order to get emails from your desired email account. These settings are done in the .fetchmailrc file. So after creating that file, add the following to it:
+		poll "Your mail server" protocol imap user "login name" password "your password"
+	The mail server can be found from the internet depending on the email provider being used. For gmail it is "imap.gmail.com". Another thing to keep in mind is that imap must be enabled on your account in order for this to work.
+	[For ST email accounts on Microsoft Exchange server, this is: webmail-ap.st.com]
+
+	{NOTE: There are pending issues related to fetching mails over imap from an st email account. The authentication (as tried) offered by fetchmail (and mail, mutt) is not deemed enough by the Microsoft Exchange Server (as configured for all st accounts). Hence access is not granted to download mails in a local mailbox}
