@@ -44,7 +44,7 @@ nG : To move to the nth line of the file.
 The hjkl can also be used with numbers. 2j means move two lines down.
 
 Marking files:
-Go to the line to be markerd, press m to get into the marking mode. Then press any one letter. This letter will the tag for this line. So next time if you want to go this line directly, you can type ' followed by the letter.
+Go to the line to be markerd, press m to get into the marking mode. Then press any one letter. This letter will the tag for this line. So next time if you want to go this line directly, you can type ' (single quote) or ` (the tilte thingy) followed by the letter.
 
 Change mode:
 This mode is to be used in conjunction to other modes. 
